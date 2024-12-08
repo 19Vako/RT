@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/KulimPark-Bold.ttf",
+      "sha1": "dc801c6badaa437e9ae77dcac54f315576bb35ca"
+    },
+    {
+      "path": "assets/fonts/KulimPark-Regular.ttf",
+      "sha1": "4bd1ab3e16556992eafeead164d6fbf10efefd3f"
+    },
+    {
+      "path": "assets/fonts/KulimPark-SemiBold.ttf",
+      "sha1": "9fd3185830aa117d4b72d9333b51756ea88e0f45"
+    },
+    {
+      "path": "assets/fonts/YujiMai-Regular.ttf",
+      "sha1": "1d3c478d280eb0ca31e94e83690eca48cb56f9ce"
+    }
+  ]
+}

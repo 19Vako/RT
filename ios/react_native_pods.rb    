@@ -1,0 +1,27 @@
+# react_native_pods.rb
+
+require 'json'
+require 'fileutils'
+
+def react_native_pods
+  # Замените путь, если ваша версия React Native установлена в другом месте
+  react_native_path = '../node_modules/react-native'
+  if !File.exist?(react_native_path)
+    raise 'React Native is not installed or the path is incorrect.'
+  end
+
+  # Подключение скриптов из React Native
+  react_native_config = File.join(react_native_path, 'scripts/react_native_pods.rb')
+  eval(File.read(react_native_config)) if File.exist?(react_native_config)
+
+  # Убедитесь, что нужные библиотеки и скрипты для pod'ов используются
+  pod 'React', :path => react_native_path
+  pod 'React-Core', :path => react_native_path
+  pod 'React-DevSupport', :path => react_native_path
+  pod 'React-RCTNetwork', :path => react_native_path
+  pod 'React-RCTText', :path => react_native_path
+  pod 'React-RCTImage', :path => react_native_path
+  pod 'React-CoreModules', :path => react_native_path
+  pod 'ReactCommon', :path => react_native_path
+end
+
