@@ -1,15 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Animated, View, StyleSheet, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Импортируем useNavigation
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 import responsive from '../../config/responsive';
 
 const { scale, scaleHeight } = responsive;
 
 const LoadingBars = () => {
   const navigation = useNavigation<any>();
-  const columns = [39, 57, 23, 12, 39, 51, 28, 17, 9, 39, 17, 36, 39, 57]; // Высота столбцов
+  const columns = [39, 57, 23, 12, 39, 51, 28, 17, 9, 39, 17, 36, 39, 57]; // Heights of the bars
   const animations = useRef(columns.map(() => new Animated.Value(0))).current;
-  const [activeIndex, setActiveIndex] = useState(-1); // Индекс текущего окрашенного столбца
+  const [activeIndex, setActiveIndex] = useState(-1); // Index of the currently highlighted bar
 
   useEffect(() => {
     const animateBars = () => {
@@ -27,18 +27,18 @@ const LoadingBars = () => {
     animateBars();
   }, [animations]);
 
-  // Функция для проверки, если процент 100
+  // Function to check if percentage reaches 100
   const checkAndNavigate = () => {
     if (activeIndex === columns.length - 1) {
-      navigation.navigate('WelcomeScreen'); // Переход на следующий экран
+      navigation.navigate('WelcomeScreen'); // Navigate to the next screen
     }
   };
 
   useEffect(() => {
     if (activeIndex === columns.length - 1) {
-      checkAndNavigate(); // Проверка при достижении последнего столбца
+      checkAndNavigate(); // Check when the last bar is reached
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex]);
 
   return (
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     width: scale(18),
   },
   percentage: {
-    borderBottomColor: 'while',
+    borderBottomColor: 'white',
     width: scale(45),
     position: 'absolute',
     top: -scale(20),

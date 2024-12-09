@@ -5,7 +5,7 @@ import { useStore } from '../../context/Context';
 const BackgroundWrapper = ({ children }: { children: React.ReactNode }) => {
   const { brightness } = useStore();
 
-
+  // Calculate overlay opacity based on brightness
   const adjustedBrightness = 1 - Math.min(1, Math.max(0, +brightness / 100));
 
   return (
@@ -14,7 +14,7 @@ const BackgroundWrapper = ({ children }: { children: React.ReactNode }) => {
       style={styles.background}
       resizeMode="cover"
     >
-
+      {/* Overlay with adjustable opacity */}
       <View style={[styles.overlay, { opacity: adjustedBrightness }]} />
       <View>
         {children}

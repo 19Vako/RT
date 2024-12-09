@@ -10,22 +10,22 @@ export default function UpdateScreen() {
 
   return (
     <BackgroundWrapper>
-      <Text style={styles.description}>Обновить</Text>
+      <Text style={styles.description}>Update</Text>
       <View style={styles.image} />
 
-      <Text style={styles.incomeText}>Доход</Text>
+      <Text style={styles.incomeText}>Income</Text>
       <View style={[styles.incomeContainer, {backgroundColor: theme}]}>
         <Text style={[styles.incomeSum, {color: colorText}]}>0</Text>
       </View>
 
-      <Text style={styles.lossesText}>Потери</Text>
+      <Text style={styles.lossesText}>Losses</Text>
       <View style={styles.lossesContainer}>
         <Text style={styles.lossesSum}>0</Text>
       </View>
       <View style={styles.onMenu}>
         <OnMenuButton />
       </View>
-   </BackgroundWrapper>
+    </BackgroundWrapper>
   );
 }
 

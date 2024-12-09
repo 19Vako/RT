@@ -6,44 +6,52 @@ import { useNavigation } from '@react-navigation/native';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 
-
-
 export default function AddAffirmationScreen() {
-  const { colorText, theme, setInputText, inputText,  addBlock} = useStore();
+  const { colorText, theme, setInputText, inputText, addBlock } = useStore();
   const navigation = useNavigation<any>();
 
   const handle = () => {
-    if(inputText){
-    navigation.navigate('Affirmations');
-    addBlock();
+    if (inputText) {
+      navigation.navigate('Affirmations');
+      addBlock();
     }
   };
 
   return (
     <BackgroundWrapper>
-      <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('Affirmations')}>
+      {/* Кнопка закрытия */}
+      <TouchableOpacity
+        style={styles.closeContainer}
+        onPress={() => navigation.navigate('Affirmations')}
+      >
         <ImageBackground
           source={require('../images/icons/closeIcon.png')}
           resizeMode="cover"
           style={styles.closeIcon}
         />
-
       </TouchableOpacity>
 
+      {/* Поле ввода */}
       <View style={[styles.inputContainer, { backgroundColor: theme }]}>
         <TextInput
           style={styles.input}
-          placeholder="Текст для аффирмации"
+          placeholder="Enter affirmation text" // Переведенный текст
           placeholderTextColor={colorText}
           multiline={true}
           textAlignVertical="top"
           onChangeText={setInputText}
         />
       </View>
-      <TouchableOpacity style={[styles.addButton, {backgroundColor: theme}]} onPress={handle}>
-        <Text style={[styles.addButtonText, {color: colorText}]}>+</Text>
+
+      {/* Кнопка добавления */}
+      <TouchableOpacity
+        style={[styles.addButton, { backgroundColor: theme }]}
+        onPress={handle}
+      >
+        <Text style={[styles.addButtonText, { color: colorText }]}>+</Text>
       </TouchableOpacity>
 
+      {/* Кнопка перехода в меню */}
       <View style={styles.onMenu}>
         <OnMenuButton />
       </View>
@@ -60,9 +68,9 @@ const styles = StyleSheet.create({
     left: scale(369),
   },
   closeIcon: {
-   flex: 1,
-   width: scale(20.69),
-   height: isIPhoneSE ? scaleHeight(25) : scaleHeight(20.69),
+    flex: 1,
+    width: scale(20.69),
+    height: isIPhoneSE ? scaleHeight(25) : scaleHeight(20.69),
   },
   inputContainer: {
     width: scale(382),
@@ -80,7 +88,7 @@ const styles = StyleSheet.create({
     left: scale(24),
     color: '#000000',
     fontSize: scale(13),
-    paddingVertical: 10, // Добавляет отступ внутри TextInput
+    paddingVertical: 10, // Внутренний отступ
   },
   addButton: {
     position: 'absolute',

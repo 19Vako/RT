@@ -1,35 +1,34 @@
 import { StyleSheet, TextInput, View, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import React, { useState } from 'react';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
-import { scale, scaleHeight, isIPhoneSE} from '../config/responsive';
+import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
 
 export default function BudgetEditScreen() {
-  const { theme, setBudget, addBudget} = useStore();
+  const { theme, setBudget, addBudget } = useStore();
   const navigation = useNavigation<any>();
 
   const [placeholderVisible, setPlaceholderVisible] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
   const today = new Date();
-  const day = today.getDate(); // Получаем день месяца (1-31)
+  const day = today.getDate(); // Getting the day of the month (1-31)
   const month = today.getMonth() + 1;
 
   const budgetChange = () => {
-    if(inputValue){
-    const numberValue = parseFloat(inputValue);
-    setBudget(numberValue);
-    addBudget({ date: `${day}/${month}`, sum: numberValue });
-    navigation.navigate('Budget');
+    if (inputValue) {
+      const numberValue = parseFloat(inputValue);
+      setBudget(numberValue);
+      addBudget({ date: `${day}/${month}`, sum: numberValue });
+      navigation.navigate('Budget');
     }
   };
 
   return (
     <BackgroundWrapper>
-
-       <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('Budget')}>
+      <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('Budget')}>
         <ImageBackground
           source={require('../images/icons/closeIcon.png')}
           resizeMode="cover"
@@ -40,7 +39,7 @@ export default function BudgetEditScreen() {
         <TextInput
           value={inputValue}
           style={styles.input}
-          placeholder={placeholderVisible ? 'Бюджет' : ''}
+          placeholder={placeholderVisible ? 'Budget' : ''}
           placeholderTextColor="#FFFFFF"
           onFocus={() => setPlaceholderVisible(false)}
           onBlur={() => setPlaceholderVisible(true)}
@@ -49,7 +48,7 @@ export default function BudgetEditScreen() {
         />
       </View>
 
-      <TouchableOpacity style={[styles.changeBudgetBox, { backgroundColor: theme }]} onPress={() => {budgetChange();}}>
+      <TouchableOpacity style={[styles.changeBudgetBox, { backgroundColor: theme }]} onPress={budgetChange}>
         <Image style={styles.image} source={require('../images/icons/changeIcon.png')} />
       </TouchableOpacity>
 
@@ -69,9 +68,9 @@ const styles = StyleSheet.create({
     left: scale(369),
   },
   closeIcon: {
-   flex: 1,
-   width: scale(20.69),
-   height: isIPhoneSE ? scaleHeight(25) : scaleHeight(20.69),
+    flex: 1,
+    width: scale(20.69),
+    height: isIPhoneSE ? scaleHeight(25) : scaleHeight(20.69),
   },
   budgetBox: {
     position: 'absolute',

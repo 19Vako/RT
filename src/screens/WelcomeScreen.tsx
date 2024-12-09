@@ -4,8 +4,6 @@ import Swiper from 'react-native-swiper';
 import { useNavigation } from '@react-navigation/native';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 
-
-
 const WelcomeScreen = () => {
   const swiperRef = useRef<Swiper>(null);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -14,30 +12,30 @@ const WelcomeScreen = () => {
   const slides = [
     {
       image: require('../images/slideImg1.png'),
-      text: 'Приветствуем вас в захватывающем мире  — вашего надежного напарника для успешного трейдинга! Наше приложение предоставляет уникальную возможность измерить ваш уровень стресса и толерантности к риску, что поможет вам принимать более обоснованные и эффективные решения в мире финансов.',
+      text: 'Welcome to the exciting world — your trusted partner for successful trading! Our app provides a unique opportunity to measure your stress level and risk tolerance, helping you make more informed and effective decisions in the financial world.',
     },
     {
       image: require('../images/slideImg2.png'),
-      text: 'Наше приложение предлагает инновационные инструменты и метрики, которые помогут вам эффективно управлять вашими инвестициями и снизить финансовые риски.',
+      text: 'Our app offers innovative tools and metrics to help you effectively manage your investments and reduce financial risks.',
     },
     {
       image: require('../images/slideImg3.png'),
-      text: 'Давайте вместе создадим успех в мире трейдинга! Наше приложение поможет вам развивать вашу финансовую стратегию, улучшать вашу торговую дисциплину и достигать ваших финансовых целей.',
+      text: 'Let’s create success together in the world of trading! Our app will help you develop your financial strategy, improve your trading discipline, and achieve your financial goals.',
     },
   ];
 
   const handleNextSlide = () => {
     if (swiperRef.current) {
       if (currentSlideIndex === slides.length - 1) {
-        navigation.navigate('Menu'); // Перейти на другую страницу
+        navigation.navigate('Menu'); // Navigate to another page
       } else {
-        swiperRef.current.scrollBy(1); // Переключаемся на следующий слайд
+        swiperRef.current.scrollBy(1); // Move to the next slide
       }
     }
   };
 
   const handleIndexChanged = (index: number) => {
-    setCurrentSlideIndex(index); // Обновляем индекс текущего слайда
+    setCurrentSlideIndex(index); // Update the current slide index
   };
 
   return (
@@ -52,7 +50,7 @@ const WelcomeScreen = () => {
         showsPagination={true}
         dotStyle={styles.dot}
         activeDotStyle={styles.activeDot}
-        onIndexChanged={handleIndexChanged} // Обновляем индекс при смене слайда
+        onIndexChanged={handleIndexChanged} // Update index when slide changes
       >
         {slides.map((slide, index) => (
           <View key={index} style={styles.slide}>
@@ -64,7 +62,7 @@ const WelcomeScreen = () => {
 
       <TouchableOpacity style={styles.button} onPress={handleNextSlide}>
         <Text style={styles.buttonText}>
-        Приступить
+        Start
         </Text>
       </TouchableOpacity>
     </ImageBackground>
@@ -76,7 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   slide: {
-    marginTop:scaleHeight(174),
+    marginTop: scaleHeight(174),
   },
   image: {
     width: scale(331),

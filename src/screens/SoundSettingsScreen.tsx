@@ -13,7 +13,7 @@ export default function SoundSettingsScreen() {
 
   return (
     <BackgroundWrapper>
-       <Text style={styles.description}>Настройки звука</Text>
+       <Text style={styles.description}>Sound Settings</Text>
        <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('Settings')}>
         <ImageBackground
           source={require('../images/icons/closeIcon.png')}
@@ -22,22 +22,21 @@ export default function SoundSettingsScreen() {
         />
       </TouchableOpacity>
       <View style={[styles.box1, {backgroundColor: theme}]} />
-      <Text style={[styles.text1, {color: colorText}]}>Включить мелодию</Text>
+      <Text style={[styles.text1, {color: colorText}]}>Enable melody</Text>
 
         <View style={styles.switchConteiner1}>
           <Switch />
         </View>
 
       <View style={[styles.box2, {backgroundColor: theme}]} />
-      <Text style={[styles.text2, {color: colorText}]}>Включить звук кнопок</Text>
-
+      <Text style={[styles.text2, {color: colorText}]}>Enable button sounds</Text>
 
         <View style={styles.switchConteiner2}>
           <Switch />
         </View>
 
       <View style={[styles.box3, {backgroundColor: theme}]} />
-      <Text style={[styles.text3, {color: colorText}]}>Включить звук уведомлений</Text>
+      <Text style={[styles.text3, {color: colorText}]}>Enable notification sounds</Text>
       <View style={styles.switchConteiner3}>
         <Switch />
       </View>

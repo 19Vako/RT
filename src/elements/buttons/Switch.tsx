@@ -12,7 +12,7 @@ const Switch = () => {
   const translateX = React.useRef(new Animated.Value(0)).current;
 
   const toggleSwitch = () => {
-    const toValue = isEnabled ? 0 : isIPhoneSE ? scale(37) : scale(42); // Двигаем круг вправо или влево
+    const toValue = isEnabled ? 0 : isIPhoneSE ? scale(37) : scale(42); // Move the circle right or left
     Animated.timing(translateX, {
       toValue,
       duration: 300,
@@ -24,7 +24,7 @@ const Switch = () => {
   return (
     <TouchableWithoutFeedback onPress={toggleSwitch}>
       <View style={[styles.switchContainer, isEnabled ? styles.enabled : styles.disabled]}>
-        <Animated.View style={[styles.circle, {transform: [{ translateX }]} ]}/>
+        <Animated.View style={[styles.circle, { transform: [{ translateX }] }]} />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   enabled: {
-    backgroundColor: '#78EE59', // Зеленый цвет для включенного состояния
+    backgroundColor: '#78EE59', // Green color for the enabled state
   },
   disabled: {
-    backgroundColor: '#d8d8d8', // Серый цвет для выключенного состояния
+    backgroundColor: '#d8d8d8', // Gray color for the disabled state
   },
   circle: {
     width: isIPhoneSE ? scale(25) : scale(27.9),

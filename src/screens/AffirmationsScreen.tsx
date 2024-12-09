@@ -1,11 +1,10 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import { ImageBackground, StyleSheet, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
 import { scale, scaleHeight } from '../config/responsive';
-
 
 const AffirmationsScreen = () => {
   const { theme, colorText, blocks, removeBlock } = useStore();
@@ -13,7 +12,7 @@ const AffirmationsScreen = () => {
 
   return (
     <BackgroundWrapper>
-      <Text style={styles.header}>Позитивные аффирмации</Text>
+      <Text style={styles.header}>Positive Affirmations</Text>
 
       <ImageBackground
         source={require('../images/icons/afimationBackgroundBox.png')}
@@ -22,11 +21,11 @@ const AffirmationsScreen = () => {
         style={styles.descriptionBox}
       >
         <Text style={[styles.blockText, styles.descriptionText]}>
-          Раздел с возможностью установки и редактирования позитивных утверждений перед торговыми сессиями. (Возможность рандома)
+          A section for setting and editing positive affirmations before trading sessions. (Randomization option available)
         </Text>
       </ImageBackground>
 
-      {/* Список блоков */}
+      {/* List of blocks */}
       <ScrollView style={styles.list}>
         {blocks.map((block) => (
           <TouchableOpacity onPress={() => removeBlock(block.id)} key={block.id} style={[styles.afirmationBox, {backgroundColor: theme}]}>
@@ -34,10 +33,10 @@ const AffirmationsScreen = () => {
           </TouchableOpacity>
         ))}
 
-      {/* Кнопка добавления блока */}
-      <TouchableOpacity style={[styles.addButton, {backgroundColor: theme}]} onPress={() => navigation.navigate('AddAffirmation')}>
-        <Text style={[styles.addButtonText, {color: colorText}]}>+</Text>
-      </TouchableOpacity>
+        {/* Add block button */}
+        <TouchableOpacity style={[styles.addButton, {backgroundColor: theme}]} onPress={() => navigation.navigate('AddAffirmation')}>
+          <Text style={[styles.addButtonText, {color: colorText}]}>+</Text>
+        </TouchableOpacity>
       </ScrollView>
 
       <View style={styles.onMenu}>

@@ -6,44 +6,40 @@ import Switch from '../elements/buttons/Switch';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 
-
 export default function RiskToleranceScreen() {
   const { theme, colorText, bargainsHistory } = useStore();
   const navigation = useNavigation<any>();
 
-
   return (
     <BackgroundWrapper>
+      <Text style={styles.description}>Risk Tolerance Calculation</Text>
+      <Image style={styles.image} source={require('../images/tolerantionImage.png')} />
 
-      <Text style={styles.description}>Расчет толерантности к риску</Text>
-      <Image style={styles.image} source={require('../images/tolerantionImage.png')}/>
-
-      <View style={[styles.notifications, {backgroundColor: theme}]}>
-        <Text style={[styles.notificationsText, {color: colorText}]}>Уведомление толерантности</Text>
+      <View style={[styles.notifications, { backgroundColor: theme }]}>
+        <Text style={[styles.notificationsText, { color: colorText }]}>Tolerance Notification</Text>
         <Switch />
       </View>
 
       <TouchableOpacity style={styles.pastTrades} onPress={() => navigation.navigate('PastBargainsScreen')}>
-      <Text style={styles.pastTradesText}>Прошлые торги</Text>
+        <Text style={styles.pastTradesText}>Past Trades</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[styles.update, {backgroundColor: theme}]} onPress={() => navigation.navigate('UpdateScreen')}>
-      <Text style={[styles.pastTradesText, {color: colorText}]}>Обновить</Text>
+      <TouchableOpacity style={[styles.update, { backgroundColor: theme }]} onPress={() => navigation.navigate('UpdateScreen')}>
+        <Text style={[styles.pastTradesText, { color: colorText }]}>Update</Text>
       </TouchableOpacity>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.list}>
-      {bargainsHistory ? bargainsHistory.map((item, index) => (
-        <TouchableOpacity
-          onPress={() => {navigation.navigate('TradeHistory', { item });}}
-          key={index}
-          style={[styles.history, { backgroundColor: theme }]}
-        >
-          <Text style={[styles.historyText, { color: colorText }]}>История торгов</Text>
-          <Text style={[styles.date, { color: colorText }]}>{item.date}</Text>
-        </TouchableOpacity>
-      )) : null}
+        {bargainsHistory ? bargainsHistory.map((item, index) => (
+          <TouchableOpacity
+            onPress={() => { navigation.navigate('TradeHistory', { item }); }}
+            key={index}
+            style={[styles.history, { backgroundColor: theme }]}
+          >
+            <Text style={[styles.historyText, { color: colorText }]}>Trade History</Text>
+            <Text style={[styles.date, { color: colorText }]}>{item.date}</Text>
+          </TouchableOpacity>
+        )) : null}
       </ScrollView>
-
     </BackgroundWrapper>
   );
 }
@@ -136,5 +132,4 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     fontFamily: 'KulimPark-Regular',
   },
-
 });

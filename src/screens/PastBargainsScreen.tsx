@@ -5,31 +5,30 @@ import { scale, scaleHeight } from '../config/responsive';
 import { useStore } from '../context/Context';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
 
-
 export default function PastBargainsScreen() {
   const { theme, colorText } = useStore();
 
   return (
-   <BackgroundWrapper>
-    <Text style={styles.description}>Прошлые торги</Text>
-    <Text style={styles.date}>05.01.2023</Text>
+    <BackgroundWrapper>
+      <Text style={styles.description}>Past Bargains</Text>
+      <Text style={styles.date}>05.01.2023</Text>
 
+      <Image style={styles.image} source={require('../images/pastTolerantion.png')} />
 
-    <Image style={styles.image} source={require('../images/pastTolerantion.png')}/>
+      <Text style={styles.incomeText}>Income</Text>
+      <View style={[styles.incomeContainer, { backgroundColor: theme }]}>
+        <Text style={[styles.incomeSum, { color: colorText }]}>8.200</Text>
+      </View>
 
-    <Text style={styles.incomeText}>Доход</Text>
-    <View style={[styles.incomeContainer, {backgroundColor: theme}]}>
-      <Text style={[styles.incomeSum, {color: colorText}]}>8.200</Text>
-    </View>
+      <Text style={styles.lossesText}>Losses</Text>
+      <View style={styles.lossesContainer}>
+        <Text style={styles.lossesSum}>5.650</Text>
+      </View>
 
-    <Text style={styles.lossesText}>Потери</Text>
-    <View style={styles.lossesContainer}>
-      <Text style={styles.lossesSum}>5.650</Text>
-    </View>
-    <View style={styles.onMenu}>
-      <OnMenuButton />
-    </View>
-   </BackgroundWrapper>
+      <View style={styles.onMenu}>
+        <OnMenuButton />
+      </View>
+    </BackgroundWrapper>
   );
 }
 

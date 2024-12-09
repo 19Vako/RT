@@ -20,7 +20,7 @@ export default function ScreenSettingsScreen() {
 
   return (
     <BackgroundWrapper>
-      <Text style={styles.description}>Сменить цвет кнопок</Text>
+      <Text style={styles.description}>Change button color</Text>
       <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('Settings')}>
         <ImageBackground
           source={require('../images/icons/closeIcon.png')}
@@ -32,7 +32,7 @@ export default function ScreenSettingsScreen() {
       <TouchableOpacity
         style={[
           styles.whiteBox,
-          selectedColor === 'white' && styles.selectedBox, // Добавляем стиль, если выбран
+          selectedColor === 'white' && styles.selectedBox, // Add style if selected
         ]}
         onPress={() => {handlePress('white'); white();}}
       >
@@ -69,13 +69,11 @@ export default function ScreenSettingsScreen() {
       >
         {selectedColor === 'green' && <View style={[styles.innerSquare, { backgroundColor: '#12FF54' }]} />}
       </TouchableOpacity>
-      <Text style={{position: 'absolute', top: scaleHeight(246), left: scale(37), color: '#FFFFFF'}}>Установить яркость</Text>
+      <Text style={{position: 'absolute', top: scaleHeight(246), left: scale(37), color: '#FFFFFF'}}>Set brightness</Text>
 
       <View style={{position: 'absolute', left: scale(25), top: scaleHeight(295)}}>
         <BrightnessSlider />
       </View>
-
-
     </BackgroundWrapper>
   );
 }
@@ -156,7 +154,7 @@ const styles = StyleSheet.create({
   innerSquare: {
     width: scale(17),
     height: scaleHeight(17),
-    backgroundColor: '#FFFFFF', // Белый по умолчанию
+    backgroundColor: '#FFFFFF', // White by default
     alignSelf: 'center',
     borderRadius: scale(4),
   },

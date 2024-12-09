@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View, TextInput, ImageBackground } from 'react-native';
 import React, { useState } from 'react';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
-import { scale, scaleHeight, isIPhoneSE} from '../config/responsive';
+import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import DatePickerComponent from '../elements/buttons/DatePickerComponent';
@@ -10,7 +10,6 @@ import OnMenuButton from '../elements/buttons/OnMenuButton';
 export default function TotalIncomeScreen() {
   const { theme, colorText } = useStore();
   const navigation = useNavigation<any>();
-
 
   const [incomeValue, setIncomeValue] = useState<string>('');
   const [lossesValue, setLossesValue] = useState<string>('');
@@ -29,7 +28,7 @@ export default function TotalIncomeScreen() {
 
   return (
     <BackgroundWrapper>
-      <Text style={styles.description}>Общий доход</Text>
+      <Text style={styles.description}>Total Income</Text>
 
       <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('PotentialLosses')}>
         <ImageBackground
@@ -43,19 +42,21 @@ export default function TotalIncomeScreen() {
         <Text style={styles.allIncomeText}>100000</Text>
       </View>
 
-      <View style={[styles.dateBox, {backgroundColor: theme}]}/>
-      <View style={styles.firstdate}><DatePickerComponent onDateChange={handleIncomeDateChange} /></View>
-      <View style={styles.lastdate}><DatePickerComponent onDateChange={handleLossesDateChange}  /></View>
+      <View style={[styles.dateBox, { backgroundColor: theme }]} />
+      <View style={styles.firstdate}>
+        <DatePickerComponent onDateChange={handleIncomeDateChange} />
+      </View>
+      <View style={styles.lastdate}>
+        <DatePickerComponent onDateChange={handleLossesDateChange} />
+      </View>
 
-
-
-      <Text style={styles.incomeText}>Доход</Text>
+      <Text style={styles.incomeText}>Income</Text>
       <Text style={styles.incomeDate}>{incomeDate}</Text>
       <View style={[styles.incomeBox, { backgroundColor: theme }]}>
         <TextInput
           value={incomeValue}
           style={[styles.input, { color: colorText }]}
-          placeholder={isIncomeFocused ? '' : 'Бюджет'}
+          placeholder={isIncomeFocused ? '' : 'Budget'}
           placeholderTextColor={colorText}
           keyboardType="numeric"
           onFocus={() => setIncomeFocused(true)}
@@ -67,14 +68,14 @@ export default function TotalIncomeScreen() {
         <Image style={styles.image} source={require('../images/icons/changeIcon.png')} />
       </TouchableOpacity>
 
-      <Text style={styles.lossesText}>Потери</Text>
+      <Text style={styles.lossesText}>Losses</Text>
       <Text style={styles.lossesDate}>{lossesDate}</Text>
       <View style={styles.lossesBox}>
         <TextInput
           value={lossesValue}
           // eslint-disable-next-line react-native/no-inline-styles
-          style={[styles.input, {color: '#FFFFFF'}]}
-          placeholder={isLossesFocused ? '' : 'Потери'}
+          style={[styles.input, { color: '#FFFFFF' }]}
+          placeholder={isLossesFocused ? '' : 'Losses'}
           placeholderTextColor="#FFFFFF"
           keyboardType="numeric"
           onFocus={() => setLossesFocused(true)}
@@ -89,7 +90,6 @@ export default function TotalIncomeScreen() {
       <View style={styles.onMenu}>
         <OnMenuButton />
       </View>
-
     </BackgroundWrapper>
   );
 }

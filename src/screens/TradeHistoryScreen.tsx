@@ -5,11 +5,9 @@ import { scale, scaleHeight } from '../config/responsive';
 import { useStore } from '../context/Context';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
 
-
-
 const TradeHistory: React.FC<any> = ({ route }) => {
   const { item } = route.params;
-  const { theme } = useStore();
+  const { theme, colorText } = useStore();
 
   return (
     <BackgroundWrapper>
@@ -18,15 +16,15 @@ const TradeHistory: React.FC<any> = ({ route }) => {
       <Image style={styles.image} source={require('../images/tradeHistoryImage.png')} />
       <View style={[styles.box, {backgroundColor: theme}]} />
 
-      <Text style={styles.incomeText}>Доход</Text>
+      <Text style={[styles.incomeText, {color: colorText}]}>Income</Text>
 
-      <View style={styles.incomeBox} >
+      <View style={styles.incomeBox}>
         <Text style={styles.Text}>{item.income}</Text>
       </View>
 
-      <Text style={styles.lossesText}>Потери</Text>
+      <Text style={[styles.lossesText, {color: colorText}]}>Losses</Text>
 
-      <View style={styles.lossesBox} >
+      <View style={styles.lossesBox}>
         <Text style={styles.Text}>{item.losses}</Text>
       </View>
 
@@ -108,7 +106,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scaleHeight(586),
     left: scale(91),
-
     fontSize: scale(16),
     fontFamily: 'KulimPark-SemiBold',
   },

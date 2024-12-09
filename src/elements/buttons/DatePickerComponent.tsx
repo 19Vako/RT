@@ -5,14 +5,13 @@ import { scale, scaleHeight } from '../../config/responsive';
 import { useStore } from '../../context/Context';
 
 interface DatePickerComponentProps {
-  onDateChange: (date: string) => void; // Функция для передачи выбранной даты
+  onDateChange: (date: string) => void; // Function to pass the selected date
 }
 
 const DatePickerComponent: React.FC<DatePickerComponentProps> = ({ onDateChange }) => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [isCalendarVisible, setCalendarVisible] = useState(false);
-  const {colorText} = useStore();
-
+  const { colorText } = useStore();
 
   const formatDate = (date: string) => {
     const newDate = new Date(date);
@@ -26,7 +25,7 @@ const DatePickerComponent: React.FC<DatePickerComponentProps> = ({ onDateChange 
     const formattedDate = formatDate(day.dateString);
     setSelectedDate(formattedDate);
     setCalendarVisible(false);
-    onDateChange(formattedDate); // Передача выбранной даты через props
+    onDateChange(formattedDate); // Pass the selected date through props
   };
 
   return (
@@ -39,7 +38,7 @@ const DatePickerComponent: React.FC<DatePickerComponentProps> = ({ onDateChange 
           style={styles.image}
           source={require('../../images/icons/calendarIcon.png')}
         />
-        <Text style={[styles.buttonText, {color: colorText}]}>
+        <Text style={[styles.buttonText, { color: colorText }]}>
           {selectedDate || '00.00.0000'}
         </Text>
       </TouchableOpacity>
@@ -65,7 +64,7 @@ const DatePickerComponent: React.FC<DatePickerComponentProps> = ({ onDateChange 
               style={styles.closeButton}
               onPress={() => setCalendarVisible(false)}
             >
-              <Text style={styles.closeButtonText}>Закрыть</Text>
+              <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -4,23 +4,23 @@ import { scale, scaleHeight } from '../../config/responsive';
 import { useStore } from '../../context/Context';
 
 const CustomSlider = () => {
-  const { setBrightness, brightness} = useStore();
-  const sliderWidth = scale(359); // Ширина ползунка в пикселях
-  const thumbWidth = scale(14.45); // Ширина бегунка
+  const { setBrightness, brightness } = useStore();
+  const sliderWidth = scale(359); // Slider width in pixels
+  const thumbWidth = scale(14.45); // Thumb width
 
-  // Настройка PanResponder для обработки перетаскивания бегунка
+  // Configure PanResponder to handle thumb dragging
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: (e, gestureState) => {
-        // Вычисляем новое значение, ограниченное от 0 до 100
+        // Calculate new value, constrained between 0 and 100
         let newValue = ((gestureState.moveX - thumbWidth / 2) / sliderWidth) * 100;
 
-        // Ограничиваем движение ползунка в пределах от 0 до 100
+        // Constrain slider movement within 0 to 100 range
         newValue = Math.min(100, Math.max(0, newValue));
 
-        // Округляем значение до целого числа
+        // Round the value to the nearest integer
         setBrightness(Math.round(newValue));
       },
     })
@@ -35,7 +35,7 @@ const CustomSlider = () => {
             style={[styles.thumb, { left: `${+brightness + 2}%` }]}
             {...panResponder.panHandlers}
           >
-            {/* Кнопка внутри бегунка */}
+            {/* Button inside the thumb */}
             <TouchableOpacity style={styles.button} />
           </View>
         </View>

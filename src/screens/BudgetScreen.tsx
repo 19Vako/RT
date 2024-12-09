@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { useStore } from '../context/Context';
-import { scale, scaleHeight, isIPhoneSE} from '../config/responsive';
+import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { useNavigation } from '@react-navigation/native';
 
 export default function BudgetScreen() {
@@ -34,7 +34,7 @@ export default function BudgetScreen() {
 
   return (
     <BackgroundWrapper>
-      <Text style={styles.description}>Бюджет</Text>
+      <Text style={styles.description}>Budget</Text>
       <View style={styles.budgetBox}>
         <Text style={styles.budgetBoxText}>{budget}</Text>
       </View>
@@ -55,7 +55,7 @@ export default function BudgetScreen() {
             style={styles.listBox}
             onPress={() => openModal(item.sum, item.date)}
           >
-            <Text style={styles.listBoxText}>Бюджет торгов</Text>
+            <Text style={styles.listBoxText}>Budget of the Bargains</Text> {/* Translated text */}
             <Text style={styles.listBoxDate}>{item.date}</Text>
           </TouchableOpacity>
         ))}
@@ -71,7 +71,7 @@ export default function BudgetScreen() {
           <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
             <Image style={styles.closeIcon} source={require('../images/icons/closeIcon.png')} />
           </TouchableOpacity>
-          <Text style={styles.modalText}>Бюджет торгов</Text>
+          <Text style={styles.modalText}>Budget of the Bargains</Text> {/* Translated text */}
           <View style={[styles.modalContent, {backgroundColor: theme}]}>
             <Text style={[styles.modalAmount, {color: colorText}]}>{selectedBudget}</Text>
           </View>
@@ -198,5 +198,4 @@ const styles = StyleSheet.create({
     paddingVertical: scaleHeight(10),
     paddingHorizontal: scale(20),
   },
-
 });

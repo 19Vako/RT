@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, ImageBackground, Text, View} from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, ImageBackground, Text, View } from 'react-native';
 import React from 'react';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
@@ -7,52 +7,50 @@ import { useNavigation } from '@react-navigation/native';
 import { useStore } from '../context/Context';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 
-
-
 export default function MenuScreen() {
   const { theme, colorText } = useStore();
   const navigation = useNavigation<any>();
 
   return (
-   <BackgroundWrapper>
+    <BackgroundWrapper>
 
-    <View style={[styles.reminders, {backgroundColor: theme}]}>
-      <Text style={styles.remindersText}>Напоминание</Text>
-      <Text style={[styles.remindersRegulaerText, {color: colorText}]}>Раздел для настройки напоминаний о важных принципах трейдинга и подготовке перед торговой сессией.</Text>
-    </View>
+      <View style={[styles.reminders, { backgroundColor: theme }]}>
+        <Text style={styles.remindersText}>Reminder</Text>
+        <Text style={[styles.remindersRegulaerText, { color: colorText }]}>Section for setting up reminders about important trading principles and preparation before a trading session.</Text>
+      </View>
 
-    <TouchableOpacity style={styles.afimations} onPress={() => navigation.navigate('Affirmations')}>
-      <ImageBackground
-        source={require('../images/afimations.png')}
-        resizeMode="cover"
-        imageStyle={styles.background}
-      >
-        <Text style={styles.afimationText}>Позитивные аффирмации:</Text>
-        <Text style={styles.text}>Раздел с возможностью установки и редактирования позитивных утверждений перед торговыми сессиями. (Возможность рандома)</Text>
-      </ImageBackground>
-    </TouchableOpacity>
+      <TouchableOpacity style={styles.afimations} onPress={() => navigation.navigate('Affirmations')}>
+        <ImageBackground
+          source={require('../images/afimations.png')}
+          resizeMode="cover"
+          imageStyle={styles.background}
+        >
+          <Text style={styles.afimationText}>Positive Affirmations:</Text>
+          <Text style={styles.text}>A section with the ability to set and edit positive affirmations before trading sessions. (Randomization option)</Text>
+        </ImageBackground>
+      </TouchableOpacity>
 
-    <TouchableOpacity style={[styles.box, styles.budget, {backgroundColor: theme}]} onPress={() => navigation.navigate('Budget')}>
-      <Image style={styles.imageBudget} source={require('../images/icons/budget.png')}/>
-    </TouchableOpacity>
+      <TouchableOpacity style={[styles.box, styles.budget, { backgroundColor: theme }]} onPress={() => navigation.navigate('Budget')}>
+        <Image style={styles.imageBudget} source={require('../images/icons/budget.png')} />
+      </TouchableOpacity>
 
-    <TouchableOpacity style={[styles.box, styles.forecastUp, {backgroundColor: theme}]} onPress={() => navigation.navigate('RiskTolerance')}>
-      <Image style={styles.imageForecastUp} source={require('../images/icons/upIcon.png')}/>
-    </TouchableOpacity>
+      <TouchableOpacity style={[styles.box, styles.forecastUp, { backgroundColor: theme }]} onPress={() => navigation.navigate('RiskTolerance')}>
+        <Image style={styles.imageForecastUp} source={require('../images/icons/upIcon.png')} />
+      </TouchableOpacity>
 
-    <TouchableOpacity style={[styles.box, styles.forecastDown, {backgroundColor: theme}]} onPress={() => navigation.navigate('PotentialLosses')}>
-      <Image style={styles.imageForecastDown} source={require('../images/icons/downIcon.png')}/>
-    </TouchableOpacity>
+      <TouchableOpacity style={[styles.box, styles.forecastDown, { backgroundColor: theme }]} onPress={() => navigation.navigate('PotentialLosses')}>
+        <Image style={styles.imageForecastDown} source={require('../images/icons/downIcon.png')} />
+      </TouchableOpacity>
 
-    <TouchableOpacity style={[styles.box, styles.settings, {backgroundColor: theme}]} onPress={() => navigation.navigate('Settings')}>
-      <Image style={styles.imageSettings} source={require('../images/icons/settingIcon.png')}/>
-    </TouchableOpacity>
+      <TouchableOpacity style={[styles.box, styles.settings, { backgroundColor: theme }]} onPress={() => navigation.navigate('Settings')}>
+        <Image style={styles.imageSettings} source={require('../images/icons/settingIcon.png')} />
+      </TouchableOpacity>
 
-    <View style={styles.onMenu}>
-      <OnMenuButton />
-    </View>
+      <View style={styles.onMenu}>
+        <OnMenuButton />
+      </View>
 
-   </BackgroundWrapper>
+    </BackgroundWrapper>
   );
 }
 
@@ -113,7 +111,6 @@ const styles = StyleSheet.create({
     fontSize: scale(10),
     fontFamily: 'KulimPark-Regular',
     color: '#FFFFFF',
-
   },
   box: {
     position: 'absolute',
@@ -159,5 +156,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scaleHeight(815),
   },
-
 });

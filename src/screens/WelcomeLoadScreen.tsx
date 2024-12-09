@@ -1,14 +1,9 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Image, Text, View} from 'react-native';
+import { StyleSheet, ImageBackground, Image, Text, View } from 'react-native';
 import LoadingBars from '../elements/loaders/LoadingBars';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 
-
-
-
-
 const WelcomeLoaderScreen = () => {
-
 
     return (
       <ImageBackground
@@ -18,7 +13,7 @@ const WelcomeLoaderScreen = () => {
       >
 
         <Image style={styles.logo} source={require('../images/logo.png')} />
-        <Text style={styles.text}>Добро пожаловать!</Text>
+        <Text style={styles.text}>Welcome!</Text>
         <View style={styles.loader}>
             <LoadingBars />
         </View>
@@ -45,7 +40,7 @@ const styles = StyleSheet.create({
         width: scale(232.78),
         height: isIPhoneSE ? scaleHeight(40) : scaleHeight(27),
         top: scaleHeight(624),
-        left: scale(95),
+        marginLeft: scale(161),
         color: '#D9D9D9',
         fontSize: scale(22.89),
         alignItems: 'center',
@@ -59,8 +54,5 @@ const styles = StyleSheet.create({
     },
 
 });
-
-
-
 
 export default WelcomeLoaderScreen;

@@ -11,22 +11,21 @@ export default function SettingsScreen() {
 
   return (
     <BackgroundWrapper >
-      <Text style={styles.description}>Настройки</Text>
+      <Text style={styles.description}>Settings</Text>
 
       <TouchableOpacity style={[styles.soundSetting, {backgroundColor: theme}]} onPress={() => navigation.navigate('SoundSettings')}>
-        <Text style={[styles.text, {color: colorText}]}>Настройки звука</Text>
+        <Text style={[styles.text, {color: colorText}]}>Sound Settings</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.settingScreen, {backgroundColor: theme}]} onPress={() => navigation.navigate('ScreenSettings')}>
-        <Text style={[styles.text, {color: colorText}]}>Настройки екрана</Text>
+        <Text style={[styles.text, {color: colorText}]}>Screen Settings</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.supportScreen, {backgroundColor: theme}]} onPress={() => navigation.navigate('Support')}>
-        <Text style={[styles.text, {color: colorText}]}>Поддержка</Text>
+        <Text style={[styles.text, {color: colorText}]}>Support</Text>
       </TouchableOpacity>
 
     </BackgroundWrapper>
-
   );
 }
 

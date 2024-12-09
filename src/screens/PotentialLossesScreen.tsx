@@ -6,49 +6,44 @@ import Switch from '../elements/buttons/Switch';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 
-
 export default function PotentialLossesScreen() {
   const { theme, colorText, bargainsHistory } = useStore();
   const navigation = useNavigation<any>();
 
-
   return (
     <BackgroundWrapper>
+      <Text style={styles.description}>Potential Losses</Text>
+      <Image style={styles.image} source={require('../images/lossesImg.png')} />
 
-      <Text style={styles.description}>Возможные потери</Text>
-      <Image style={styles.image} source={require('../images/lossesImg.png')}/>
-
-      <View style={[styles.notifications, {backgroundColor: theme}]}>
-        <Text style={[styles.notificationsText, {color: colorText}]}>Уведомление потерь</Text>
+      <View style={[styles.notifications, { backgroundColor: theme }]}>
+        <Text style={[styles.notificationsText, { color: colorText }]}>Loss Notification</Text>
         <Switch />
       </View>
 
       <TouchableOpacity style={styles.allIncome} onPress={() => navigation.navigate('TotalIncome')}>
-      <Text style={styles.allIncomeText}>Общий доход</Text>
+        <Text style={styles.allIncomeText}>Total Income</Text>
       </TouchableOpacity>
 
-
-      <TouchableOpacity style={[styles.income, {backgroundColor: theme}]}>
-      <Text style={[styles.allIncomeText, {color: colorText}]}>Доход</Text>
+      <TouchableOpacity style={[styles.income, { backgroundColor: theme }]}>
+        <Text style={[styles.allIncomeText, { color: colorText }]}>Income</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.losses}>
-      <Text style={styles.allIncomeText}>Потери</Text>
+        <Text style={styles.allIncomeText}>Losses</Text>
       </TouchableOpacity>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.list}>
-      {bargainsHistory ? bargainsHistory.map((item, index) => (
-        <TouchableOpacity
-          onPress={() => {navigation.navigate('TradeHistory', { item });}}
-          key={index}
-          style={[styles.history, { backgroundColor: theme }]}
-        >
-          <Text style={[styles.historyText, { color: colorText }]}>История торгов</Text>
-          <Text style={[styles.date, { color: colorText }]}>{item.date}</Text>
-        </TouchableOpacity>
-      )) : null}
+        {bargainsHistory ? bargainsHistory.map((item, index) => (
+          <TouchableOpacity
+            onPress={() => { navigation.navigate('TradeHistory', { item }); }}
+            key={index}
+            style={[styles.history, { backgroundColor: theme }]}
+          >
+            <Text style={[styles.historyText, { color: colorText }]}>Trade History</Text>
+            <Text style={[styles.date, { color: colorText }]}>{item.date}</Text>
+          </TouchableOpacity>
+        )) : null}
       </ScrollView>
-
     </BackgroundWrapper>
   );
 }
@@ -166,5 +161,4 @@ const styles = StyleSheet.create({
     fontSize: scale(16),
     fontFamily: 'KulimPark-Regular',
   },
-
 });

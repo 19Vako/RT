@@ -9,13 +9,13 @@ import {
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
-import { scale, scaleHeight, isIPhoneSE} from '../config/responsive';
+import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 
 export default function SupportScreen() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: 'Добрый день! Чем могу вам помочь?',
+      text: 'Good day! How can I help you?',
       isUser: false,
       time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
     },
@@ -45,7 +45,7 @@ export default function SupportScreen() {
           ...prev,
           {
             id: Date.now(),
-            text: 'Спасибо за ваше сообщение! Мы свяжемся с вами.',
+            text: 'Thank you for your message! We will get in touch with you.',
             isUser: false,
             time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
           },
@@ -62,7 +62,7 @@ export default function SupportScreen() {
             source={require('../images/icons/support.png')}
             style={styles.headerIcon}
           />
-          <Text style={styles.supportLabel}>Поддержка 24/7</Text>
+          <Text style={styles.supportLabel}>Support 24/7</Text>
         </View>
       )}
       <View
@@ -79,16 +79,14 @@ export default function SupportScreen() {
     </View>
   );
 
-
-
   return (
     <BackgroundWrapper>
       <View style={styles.iconContainer}>
         <Image source={require('../images/icons/support.png')} style={styles.icon} />
       </View>
-      <Text style={styles.description}>Чат поддержки</Text>
+      <Text style={styles.description}>Support Chat</Text>
       <Text style={styles.title}>
-        Чат-поддержка - это программа, предназначенная для взаимодействия с пользователями через текстовые сообщения в режиме реального времени.
+        Chat support is a program designed for real-time communication with users through text messages.
       </Text>
       <FlatList
         data={messages}
@@ -195,9 +193,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#449782',
     marginLeft: scale(7),
   },
-
-
-
   messageWrapper: {
     marginBottom: scale(50),
   },
@@ -224,8 +219,8 @@ const styles = StyleSheet.create({
     marginHorizontal: scale(5),
     borderRadius: scale(8),
     position: 'relative',
-    width: 'auto', // Ширина зависит от контента
-    maxWidth: '50%', // Ширина не может быть больше 50% от экрана
+    width: 'auto',
+    maxWidth: '50%',
   },
   userMessage: {
     alignSelf: 'flex-end',
@@ -238,11 +233,6 @@ const styles = StyleSheet.create({
   },
   messageContent: {
     flex: 1,
-  },
-  messageIcon: {
-    width: scale(30),
-    height: scaleHeight(30),
-    marginRight: scale(10),
   },
   messageText: {
     fontSize: scale(16),
