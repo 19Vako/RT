@@ -5,6 +5,9 @@ import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
+import GlobalStyles from '../constants/GlobalStyles';
+import { icons } from '../constants/Images';
+
 
 export default function BudgetEditScreen() {
   const { theme, setBudget, addBudget } = useStore();
@@ -14,7 +17,7 @@ export default function BudgetEditScreen() {
   const [inputValue, setInputValue] = useState('');
 
   const today = new Date();
-  const day = today.getDate(); // Getting the day of the month (1-31)
+  const day = today.getDate();
   const month = today.getMonth() + 1;
 
   const budgetChange = () => {
@@ -30,7 +33,7 @@ export default function BudgetEditScreen() {
     <BackgroundWrapper>
       <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('Budget')}>
         <ImageBackground
-          source={require('../images/icons/closeIcon.png')}
+          source={icons.closelcon}
           resizeMode="cover"
           style={styles.closeIcon}
         />
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#449682',
   },
   input: {
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(50),
     color: '#FFFFFF',
     justifyContent: 'center',

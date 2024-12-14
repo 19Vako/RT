@@ -5,7 +5,8 @@ import { scale, scaleHeight } from '../config/responsive';
 import Switch from '../elements/buttons/Switch';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
-
+import GlobalStyles from '../constants/GlobalStyles';
+import { imgs } from '../constants/Images';
 export default function RiskToleranceScreen() {
   const { theme, colorText, bargainsHistory } = useStore();
   const navigation = useNavigation<any>();
@@ -13,7 +14,7 @@ export default function RiskToleranceScreen() {
   return (
     <BackgroundWrapper>
       <Text style={styles.description}>Risk Tolerance Calculation</Text>
-      <Image style={styles.image} source={require('../images/tolerantionImage.png')} />
+      <Image style={styles.image} source={imgs.tolerantionImage} />
 
       <View style={[styles.notifications, { backgroundColor: theme }]}>
         <Text style={[styles.notificationsText, { color: colorText }]}>Tolerance Notification</Text>
@@ -29,7 +30,7 @@ export default function RiskToleranceScreen() {
       </TouchableOpacity>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.list}>
-        {bargainsHistory ? bargainsHistory.map((item, index) => (
+        {bargainsHistory.map((item, index) => (
           <TouchableOpacity
             onPress={() => { navigation.navigate('TradeHistory', { item }); }}
             key={index}
@@ -38,7 +39,7 @@ export default function RiskToleranceScreen() {
             <Text style={[styles.historyText, { color: colorText }]}>Trade History</Text>
             <Text style={[styles.date, { color: colorText }]}>{item.date}</Text>
           </TouchableOpacity>
-        )) : null}
+        ))}
       </ScrollView>
     </BackgroundWrapper>
   );
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   image: {
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   },
   notificationsText: {
     fontSize: scale(13),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
     marginRight: scale(7),
   },
   pastTrades: {
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   },
   pastTradesText: {
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
   update: {
     position: 'absolute',
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   updateText: {
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
   list: {
     width: scale(292),
@@ -120,16 +121,16 @@ const styles = StyleSheet.create({
     height: scaleHeight(48),
     borderRadius: scale(13),
     marginBottom: scaleHeight(20),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
   historyText: {
     width: scale(125),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
     marginRight: scale(25),
   },
   date: {
     fontSize: scale(16),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
 });

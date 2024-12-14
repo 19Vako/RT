@@ -12,6 +12,9 @@ import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { useStore } from '../context/Context';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { useNavigation } from '@react-navigation/native';
+import OnMenuButton from '../elements/buttons/OnMenuButton';
+import GlobalStyles from '../constants/GlobalStyles';
+import { icons } from '../constants/Images';
 
 export default function BudgetScreen() {
   const navigation = useNavigation<any>();
@@ -36,7 +39,9 @@ export default function BudgetScreen() {
     <BackgroundWrapper>
       <Text style={styles.description}>Budget</Text>
       <View style={styles.budgetBox}>
-        <Text style={styles.budgetBoxText}>{budget}</Text>
+        <Text>
+          <Text style={styles.budgetBoxText}>{budget}</Text>
+        </Text>
       </View>
       <TouchableOpacity
         style={[styles.changeBudgetBox, { backgroundColor: theme }]}
@@ -44,7 +49,7 @@ export default function BudgetScreen() {
       >
         <Image
           style={styles.image}
-          source={require('../images/icons/changeIcon.png')}
+          source={icons.changelcon}
         />
       </TouchableOpacity>
 
@@ -55,7 +60,7 @@ export default function BudgetScreen() {
             style={styles.listBox}
             onPress={() => openModal(item.sum, item.date)}
           >
-            <Text style={styles.listBoxText}>Budget of the Bargains</Text> {/* Translated text */}
+            <Text style={styles.listBoxText}>Budget of the Bargains</Text>
             <Text style={styles.listBoxDate}>{item.date}</Text>
           </TouchableOpacity>
         ))}
@@ -69,15 +74,18 @@ export default function BudgetScreen() {
       >
         <View style={styles.modalOverlay}>
           <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
-            <Image style={styles.closeIcon} source={require('../images/icons/closeIcon.png')} />
+            <Image style={styles.closeIcon} source={icons.closelcon} />
           </TouchableOpacity>
-          <Text style={styles.modalText}>Budget of the Bargains</Text> {/* Translated text */}
+          <Text style={styles.modalText}>Budget of the Bargains</Text>
           <View style={[styles.modalContent, {backgroundColor: theme}]}>
             <Text style={[styles.modalAmount, {color: colorText}]}>{selectedBudget}</Text>
           </View>
           <Text style={styles.date}>{date}</Text>
         </View>
       </Modal>
+      <View style={styles.onMenu}>
+        <OnMenuButton />
+      </View>
     </BackgroundWrapper>
   );
 }
@@ -90,7 +98,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   budgetBox: {
@@ -106,7 +114,7 @@ const styles = StyleSheet.create({
   },
   budgetBoxText: {
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(50),
   },
   changeBudgetBox: {
@@ -140,14 +148,14 @@ const styles = StyleSheet.create({
   },
   listBoxText: {
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
     width: scale(150),
     fontSize: scale(16),
     left: scale(31),
   },
   listBoxDate: {
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(16),
     left: scale(66),
   },
@@ -170,11 +178,11 @@ const styles = StyleSheet.create({
     left: scale(74),
     fontSize: scale(18),
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   modalAmount: {
     fontSize: scale(50),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   date: {
     position: 'absolute',
@@ -182,7 +190,7 @@ const styles = StyleSheet.create({
     left: scale(315),
     fontSize: scale(16),
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   closeIcon: {
     width: scale(24.83),
@@ -197,5 +205,9 @@ const styles = StyleSheet.create({
     borderRadius: scale(5),
     paddingVertical: scaleHeight(10),
     paddingHorizontal: scale(20),
+  },
+  onMenu: {
+    position: 'absolute',
+    top: scaleHeight(815),
   },
 });

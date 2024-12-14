@@ -6,6 +6,8 @@ import OnMenuButton from '../elements/buttons/OnMenuButton';
 import { useNavigation } from '@react-navigation/native';
 import { useStore } from '../context/Context';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
+import GlobalStyles from '../constants/GlobalStyles';
+import { icons, imgs } from '../constants/Images';
 
 export default function MenuScreen() {
   const { theme, colorText } = useStore();
@@ -21,7 +23,7 @@ export default function MenuScreen() {
 
       <TouchableOpacity style={styles.afimations} onPress={() => navigation.navigate('Affirmations')}>
         <ImageBackground
-          source={require('../images/afimations.png')}
+          source={imgs.afimations}
           resizeMode="cover"
           imageStyle={styles.background}
         >
@@ -31,19 +33,19 @@ export default function MenuScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.box, styles.budget, { backgroundColor: theme }]} onPress={() => navigation.navigate('Budget')}>
-        <Image style={styles.imageBudget} source={require('../images/icons/budget.png')} />
+        <Image style={styles.imageBudget} source={icons.budget} />
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.box, styles.forecastUp, { backgroundColor: theme }]} onPress={() => navigation.navigate('RiskTolerance')}>
-        <Image style={styles.imageForecastUp} source={require('../images/icons/upIcon.png')} />
+        <Image style={styles.imageForecastUp} source={icons.uplcon} />
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.box, styles.forecastDown, { backgroundColor: theme }]} onPress={() => navigation.navigate('PotentialLosses')}>
-        <Image style={styles.imageForecastDown} source={require('../images/icons/downIcon.png')} />
+        <Image style={styles.imageForecastDown} source={icons.downicon} />
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.box, styles.settings, { backgroundColor: theme }]} onPress={() => navigation.navigate('Settings')}>
-        <Image style={styles.imageSettings} source={require('../images/icons/settingIcon.png')} />
+        <Image style={styles.imageSettings} source={icons.setting} />
       </TouchableOpacity>
 
       <View style={styles.onMenu}>
@@ -71,20 +73,20 @@ const styles = StyleSheet.create({
   remindersText: {
     width: scale(112),
     height: scaleHeight(50),
-    top: isIPhoneSE ? scaleHeight(15) : scaleHeight(23),
+    top: isIPhoneSE ? scaleHeight(5) : scaleHeight(12),
     left: scale(23),
     color: '#449882',
-    fontFamily: 'KulimPark-SemiBold',
-    fontSize: scale(15),
+    fontFamily: GlobalStyles.boldText.fontFamily,
+    fontSize: scale(18),
   },
   remindersRegulaerText: {
     position: 'absolute',
     width: scale(322),
     height: scaleHeight(103),
-    top: isIPhoneSE ? scaleHeight(40) : scaleHeight(45),
+    top: isIPhoneSE ? scaleHeight(30) : scaleHeight(40),
     left: scale(23),
-    fontFamily: 'KulimPark-Regular',
-    fontSize: scale(13),
+    fontFamily: GlobalStyles.text.fontFamily,
+    fontSize: scale(16),
   },
   afimations: {
     width: scale(331),
@@ -96,20 +98,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: scale(202),
     height: scaleHeight(25),
-    top: scaleHeight(16),
+    top: isIPhoneSE ? scaleHeight(5) : scaleHeight(10),
     left: scale(22),
-    fontSize: scale(14),
+    fontSize: scale(18),
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   text: {
     position: 'absolute',
-    top: scaleHeight(47),
+    top: scaleHeight(35),
     left: scale(22),
-    width: scale(251),
+    width: scale(260),
     height: scaleHeight(68),
-    fontSize: scale(10),
-    fontFamily: 'KulimPark-Regular',
+    fontSize: scale(16),
+    fontFamily: GlobalStyles.text.fontFamily,
     color: '#FFFFFF',
   },
   box: {

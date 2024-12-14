@@ -3,6 +3,7 @@ import { StyleSheet, ImageBackground, Image, View, TouchableOpacity, Text } from
 import Swiper from 'react-native-swiper';
 import { useNavigation } from '@react-navigation/native';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
+import GlobalStyles from '../constants/GlobalStyles';
 
 const WelcomeScreen = () => {
   const swiperRef = useRef<Swiper>(null);
@@ -27,15 +28,15 @@ const WelcomeScreen = () => {
   const handleNextSlide = () => {
     if (swiperRef.current) {
       if (currentSlideIndex === slides.length - 1) {
-        navigation.navigate('Menu'); // Navigate to another page
+        navigation.navigate('Menu');
       } else {
-        swiperRef.current.scrollBy(1); // Move to the next slide
+        swiperRef.current.scrollBy(1);
       }
     }
   };
 
   const handleIndexChanged = (index: number) => {
-    setCurrentSlideIndex(index); // Update the current slide index
+    setCurrentSlideIndex(index);
   };
 
   return (
@@ -50,7 +51,7 @@ const WelcomeScreen = () => {
         showsPagination={true}
         dotStyle={styles.dot}
         activeDotStyle={styles.activeDot}
-        onIndexChanged={handleIndexChanged} // Update index when slide changes
+        onIndexChanged={handleIndexChanged}
       >
         {slides.map((slide, index) => (
           <View key={index} style={styles.slide}>
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     marginTop: scaleHeight(50),
     color: '#fff',
     fontSize: scale(14),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
     marginHorizontal: scale(33),
     padding: 1,
   },
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: scale(18),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
 
   dot: {

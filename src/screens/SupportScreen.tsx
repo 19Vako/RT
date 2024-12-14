@@ -6,10 +6,13 @@ import {
   View,
   TextInput,
   FlatList,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
+import { icons } from '../constants/Images';
 
 export default function SupportScreen() {
   const [messages, setMessages] = useState([
@@ -21,6 +24,7 @@ export default function SupportScreen() {
     },
   ]);
   const [input, setInput] = useState('');
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
   const flatListRef = useRef<FlatList>(null);
 
   const sendMessage = () => {
@@ -39,27 +43,27 @@ export default function SupportScreen() {
   };
 
   useEffect(() => {
-    if (messages.length && messages[messages.length - 1].isUser) {
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: Date.now(),
-            text: 'Thank you for your message! We will get in touch with you.',
-            isUser: false,
-            time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
-          },
-        ]);
-      }, 1000);
-    }
-  }, [messages]);
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => setKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => setKeyboardVisible(false)
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   const renderMessage = ({ item }: { item: { id: any; text: string; isUser: boolean; time: string } }) => (
     <View style={styles.messageWrapper}>
       {!item.isUser && (
         <View style={styles.supportHeader}>
           <Image
-            source={require('../images/icons/support.png')}
+            source={icons.support}
             style={styles.headerIcon}
           />
           <Text style={styles.supportLabel}>Support 24/7</Text>
@@ -82,7 +86,7 @@ export default function SupportScreen() {
   return (
     <BackgroundWrapper>
       <View style={styles.iconContainer}>
-        <Image source={require('../images/icons/support.png')} style={styles.icon} />
+        <Image source={icons.support} style={styles.icon} />
       </View>
       <Text style={styles.description}>Support Chat</Text>
       <Text style={styles.title}>
@@ -94,25 +98,33 @@ export default function SupportScreen() {
         renderItem={renderMessage}
         ref={flatListRef}
         onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
-        style={styles.chatContainer}
+        style={[styles.chatContainer, keyboardVisible ? { height:  scaleHeight(222)} : { height:  scaleHeight(799)}]}
       />
-      <View style={styles.inputContainer}>
-        <TouchableOpacity>
-          <Image style={styles.emojiIcon} source={require('../images/icons/emoji.png')} />
-        </TouchableOpacity>
-        <TextInput
-          value={input}
-          onChangeText={setInput}
-          placeholder="Reply..."
-          style={styles.input}
-        />
-        <TouchableOpacity>
-          <Image style={styles.emojiIcon} source={require('../images/icons/photoIcon.png')} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.send} onPress={sendMessage}>
-          <Image style={styles.emojiIcon} source={require('../images/icons/sendIcon.png')} />
-        </TouchableOpacity>
-      </View>
+
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View
+          style={[
+            styles.inputContainer,
+            { top: keyboardVisible ? scaleHeight(490) : isIPhoneSE ? scaleHeight(850) : scaleHeight(799) },
+          ]}
+        >
+          <TouchableOpacity>
+            <Image style={styles.emojiIcon} source={icons.emoji} />
+          </TouchableOpacity>
+          <TextInput
+            value={input}
+            onChangeText={setInput}
+            placeholder="Reply..."
+            style={styles.input}
+          />
+          <TouchableOpacity>
+            <Image style={styles.emojiIcon} source={icons.photolcon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.send} onPress={sendMessage}>
+            <Image style={styles.emojiIcon} source={icons.sendicon} />
+          </TouchableOpacity>
+        </View>
+      </TouchableWithoutFeedback>
     </BackgroundWrapper>
   );
 }
@@ -156,13 +168,11 @@ const styles = StyleSheet.create({
     top: scaleHeight(268),
     left: scale(25),
     width: scale(380),
-    height: scaleHeight(500),
   },
   inputContainer: {
     position: 'absolute',
     flexDirection: 'row',
     height: scaleHeight(76),
-    top: scaleHeight(799),
     left: scale(2),
     width: scale(425),
     backgroundColor: '#FFFFFF',

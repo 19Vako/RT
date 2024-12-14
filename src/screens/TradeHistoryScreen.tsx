@@ -4,16 +4,17 @@ import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight } from '../config/responsive';
 import { useStore } from '../context/Context';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
-
+import GlobalStyles from '../constants/GlobalStyles';
+import { imgs } from '../constants/Images';
 const TradeHistory: React.FC<any> = ({ route }) => {
   const { item } = route.params;
   const { theme, colorText } = useStore();
 
   return (
     <BackgroundWrapper>
-      <Text style={styles.description}>Иcтория торгов</Text>
+      <Text style={styles.description}>Trade histry</Text>
       <Text style={styles.date}>{item.date}</Text>
-      <Image style={styles.image} source={require('../images/tradeHistoryImage.png')} />
+      <Image style={styles.image} source={imgs.tradeHistorylmage} />
       <View style={[styles.box, {backgroundColor: theme}]} />
 
       <Text style={[styles.incomeText, {color: colorText}]}>Income</Text>
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   date: {
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(79),
     left: scale(310),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   image: {
@@ -93,21 +94,21 @@ const styles = StyleSheet.create({
   Text: {
     color: '#FFFFFF',
     fontSize: scale(50),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   incomeText: {
     position: 'absolute',
     top: scaleHeight(466),
     left: scale(91),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   lossesText: {
     position: 'absolute',
     top: scaleHeight(586),
     left: scale(91),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   onMenu: {
     position: 'absolute',

@@ -5,7 +5,8 @@ import { scale, scaleHeight } from '../config/responsive';
 import Switch from '../elements/buttons/Switch';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
-
+import GlobalStyles from '../constants/GlobalStyles';
+import { imgs } from '../constants/Images';
 export default function PotentialLossesScreen() {
   const { theme, colorText, bargainsHistory } = useStore();
   const navigation = useNavigation<any>();
@@ -13,7 +14,7 @@ export default function PotentialLossesScreen() {
   return (
     <BackgroundWrapper>
       <Text style={styles.description}>Potential Losses</Text>
-      <Image style={styles.image} source={require('../images/lossesImg.png')} />
+      <Image style={styles.image} source={imgs.lossesimg} />
 
       <View style={[styles.notifications, { backgroundColor: theme }]}>
         <Text style={[styles.notificationsText, { color: colorText }]}>Loss Notification</Text>
@@ -33,7 +34,7 @@ export default function PotentialLossesScreen() {
       </TouchableOpacity>
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.list}>
-        {bargainsHistory ? bargainsHistory.map((item, index) => (
+        {bargainsHistory.map((item, index) => (
           <TouchableOpacity
             onPress={() => { navigation.navigate('TradeHistory', { item }); }}
             key={index}
@@ -42,7 +43,7 @@ export default function PotentialLossesScreen() {
             <Text style={[styles.historyText, { color: colorText }]}>Trade History</Text>
             <Text style={[styles.date, { color: colorText }]}>{item.date}</Text>
           </TouchableOpacity>
-        )) : null}
+        ))}
       </ScrollView>
     </BackgroundWrapper>
   );
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   image: {
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   },
   notificationsText: {
     fontSize: scale(13),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
     marginRight: scale(60),
   },
   allIncome: {
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
 
   allIncomeText: {
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
   update: {
     position: 'absolute',
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   updateText: {
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
   list: {
     width: scale(292),
@@ -149,16 +150,16 @@ const styles = StyleSheet.create({
     height: scaleHeight(48),
     borderRadius: scale(13),
     marginBottom: scaleHeight(20),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
   historyText: {
     width: scale(125),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
     marginRight: scale(25),
   },
   date: {
     fontSize: scale(16),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
 });

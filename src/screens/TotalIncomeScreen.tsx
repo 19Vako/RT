@@ -6,6 +6,8 @@ import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import DatePickerComponent from '../elements/buttons/DatePickerComponent';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
+import GlobalStyles from '../constants/GlobalStyles';
+import { icons } from '../constants/Images';
 
 export default function TotalIncomeScreen() {
   const { theme, colorText } = useStore();
@@ -32,7 +34,7 @@ export default function TotalIncomeScreen() {
 
       <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('PotentialLosses')}>
         <ImageBackground
-          source={require('../images/icons/closeIcon.png')}
+          source={icons.closelcon}
           resizeMode="cover"
           style={styles.closeIcon}
         />
@@ -65,7 +67,7 @@ export default function TotalIncomeScreen() {
         />
       </View>
       <TouchableOpacity style={[styles.changeIncomeBox, { backgroundColor: theme }]}>
-        <Image style={styles.image} source={require('../images/icons/changeIcon.png')} />
+        <Image style={styles.image} source={icons.changelcon} />
       </TouchableOpacity>
 
       <Text style={styles.lossesText}>Losses</Text>
@@ -84,7 +86,7 @@ export default function TotalIncomeScreen() {
         />
       </View>
       <TouchableOpacity style={[styles.changeLossesBox, { backgroundColor: theme }]}>
-        <Image style={styles.image} source={require('../images/icons/changeIcon.png')} />
+        <Image style={styles.image} source={icons.changelcon} />
       </TouchableOpacity>
 
       <View style={styles.onMenu}>
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   allIncomeBox: {
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#449682',
   },
   allIncomeText: {
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(50),
     textAlign: 'center',
     color: '#FFFFFF',
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scaleHeight(311),
     left: scale(46),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(16),
     color: '#FFFFFF',
   },
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scaleHeight(498),
     left: scale(46),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(16),
     color: '#FFFFFF',
   },
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scaleHeight(311),
     left: scale(298),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(16),
     color: '#FFFFFF',
   },
@@ -179,12 +181,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: scaleHeight(498),
     left: scale(298),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(16),
     color: '#FFFFFF',
   },
   input: {
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(50),
     textAlign: 'center',
   },

@@ -6,16 +6,18 @@ import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import BrightnessSlider from '../elements/buttons/CustomSlider';
-
+import GlobalStyles from '../constants/GlobalStyles';
+import { icons } from '../constants/Images';
 export default function ScreenSettingsScreen() {
-  const { white, dark, red, green} = useStore();
+  const { choiseTheme } = useStore();
   const navigation = useNavigation<any>();
 
-  // Состояние для хранения выбранного цвета
+
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
   const handlePress = (color: string) => {
-    setSelectedColor(color); // Устанавливаем цвет как выбранный
+    choiseTheme(color);
+    setSelectedColor(color);
   };
 
   return (
@@ -23,7 +25,7 @@ export default function ScreenSettingsScreen() {
       <Text style={styles.description}>Change button color</Text>
       <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('Settings')}>
         <ImageBackground
-          source={require('../images/icons/closeIcon.png')}
+          source={icons.closelcon}
           resizeMode="cover"
           style={styles.closeIcon}
         />
@@ -32,9 +34,9 @@ export default function ScreenSettingsScreen() {
       <TouchableOpacity
         style={[
           styles.whiteBox,
-          selectedColor === 'white' && styles.selectedBox, // Add style if selected
+          selectedColor === 'white' && styles.selectedBox,
         ]}
-        onPress={() => {handlePress('white'); white();}}
+        onPress={() => {handlePress('white');}}
       >
         {selectedColor === 'white' && <View style={styles.innerSquare} />}
       </TouchableOpacity>
@@ -42,11 +44,11 @@ export default function ScreenSettingsScreen() {
       <TouchableOpacity
         style={[
           styles.grayBox,
-          selectedColor === 'gray' && styles.selectedBox,
+          selectedColor === 'dark' && styles.selectedBox,
         ]}
-        onPress={() => {handlePress('gray'); dark();}}
+        onPress={() => {handlePress('dark');}}
       >
-        {selectedColor === 'gray' && <View style={[styles.innerSquare, { backgroundColor: '#262626' }]} />}
+        {selectedColor === 'dark' && <View style={[styles.innerSquare, { backgroundColor: '#262626' }]} />}
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -54,7 +56,7 @@ export default function ScreenSettingsScreen() {
           styles.redBox,
           selectedColor === 'red' && styles.selectedBox,
         ]}
-        onPress={() => {handlePress('red'); red();}}
+        onPress={() => {handlePress('red');}}
       >
 
         {selectedColor === 'red' && <View style={[styles.innerSquare, { backgroundColor: '#FF0A0A' }]} />}
@@ -65,7 +67,7 @@ export default function ScreenSettingsScreen() {
           styles.greenBox,
           selectedColor === 'green' && styles.selectedBox,
         ]}
-        onPress={() => {handlePress('green'); green();}}
+        onPress={() => {handlePress('green');}}
       >
         {selectedColor === 'green' && <View style={[styles.innerSquare, { backgroundColor: '#12FF54' }]} />}
       </TouchableOpacity>
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   whiteBox: {
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
   innerSquare: {
     width: scale(17),
     height: scaleHeight(17),
-    backgroundColor: '#FFFFFF', // White by default
+    backgroundColor: '#FFFFFF',
     alignSelf: 'center',
     borderRadius: scale(4),
   },

@@ -5,6 +5,8 @@ import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
 import { scale, scaleHeight } from '../config/responsive';
+import GlobalStyles from '../constants/GlobalStyles';
+import { icons } from '../constants/Images';
 
 const AffirmationsScreen = () => {
   const { theme, colorText, blocks, removeBlock } = useStore();
@@ -15,7 +17,7 @@ const AffirmationsScreen = () => {
       <Text style={styles.header}>Positive Affirmations</Text>
 
       <ImageBackground
-        source={require('../images/icons/afimationBackgroundBox.png')}
+        source={icons.afimationBackgroundBox}
         resizeMode="cover"
         imageStyle={styles.descriptionBackground}
         style={styles.descriptionBox}
@@ -25,7 +27,7 @@ const AffirmationsScreen = () => {
         </Text>
       </ImageBackground>
 
-      {/* List of blocks */}
+
       <ScrollView style={styles.list}>
         {blocks.map((block) => (
           <TouchableOpacity onPress={() => removeBlock(block.id)} key={block.id} style={[styles.afirmationBox, {backgroundColor: theme}]}>
@@ -33,7 +35,6 @@ const AffirmationsScreen = () => {
           </TouchableOpacity>
         ))}
 
-        {/* Add block button */}
         <TouchableOpacity style={[styles.addButton, {backgroundColor: theme}]} onPress={() => navigation.navigate('AddAffirmation')}>
           <Text style={[styles.addButtonText, {color: colorText}]}>+</Text>
         </TouchableOpacity>
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     left: scale(46),
     color: '#FFFFFF',
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   descriptionBox: {
     position: 'absolute',
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(28),
     left: scale(22),
     fontSize: scale(14),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
   addButton: {
     width: scale(382),

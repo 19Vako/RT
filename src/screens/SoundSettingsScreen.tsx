@@ -6,7 +6,8 @@ import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import Switch from '../elements/buttons/Switch';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
-
+import GlobalStyles from '../constants/GlobalStyles';
+import { icons } from '../constants/Images';
 export default function SoundSettingsScreen() {
   const { theme, colorText } = useStore();
   const navigation = useNavigation<any>();
@@ -16,7 +17,7 @@ export default function SoundSettingsScreen() {
        <Text style={styles.description}>Sound Settings</Text>
        <TouchableOpacity style={styles.closeContainer} onPress={() => navigation.navigate('Settings')}>
         <ImageBackground
-          source={require('../images/icons/closeIcon.png')}
+          source={icons.closelcon}
           resizeMode="cover"
           style={styles.closeIcon}
         />
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   box1: {
@@ -114,21 +115,21 @@ const styles = StyleSheet.create({
     top: scaleHeight(195),
     left: scale(37),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   text2: {
     position: 'absolute',
     top: scaleHeight(262),
     left: scale(37),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   text3: {
     position: 'absolute',
     top: scaleHeight(329),
     left: scale(37),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   onMenu: {
     position: 'absolute',

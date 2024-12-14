@@ -4,7 +4,7 @@ import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight } from '../config/responsive';
 import { useStore } from '../context/Context';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
-
+import GlobalStyles from '../constants/GlobalStyles';
 export default function UpdateScreen() {
   const { theme, colorText } = useStore();
 
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   image: {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     left: scale(48),
     color: '#FFFFFF',
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   incomeContainer: {
     position: 'absolute',
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   incomeSum: {
     fontSize: scale(50),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   lossesText: {
     position: 'absolute',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     left: scale(46),
     color: '#FFFFFF',
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   lossesContainer: {
     position: 'absolute',
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   lossesSum: {
     fontSize: scale(50),
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   onMenu: {
     position: 'absolute',

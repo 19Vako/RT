@@ -1,30 +1,59 @@
-import { StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
+import GlobalStyles from '../constants/GlobalStyles';
+
+interface SettingButtonProps {
+  title: string;
+  onPress: () => void;
+  theme: string;
+  colorText: string;
+  top: number;
+}
+
+const SettingButton: React.FC<SettingButtonProps> = ({ title, onPress, theme, colorText, top }) => (
+  <TouchableOpacity
+    style={[styles.button, { backgroundColor: theme, top: scaleHeight(top) }]}
+    onPress={onPress}
+  >
+    <Text style={[styles.text, { color: colorText }]}>{title}</Text>
+  </TouchableOpacity>
+);
 
 export default function SettingsScreen() {
-  const { theme, colorText} = useStore();
+  const { theme, colorText } = useStore();
   const navigation = useNavigation<any>();
 
   return (
-    <BackgroundWrapper >
+    <BackgroundWrapper>
       <Text style={styles.description}>Settings</Text>
 
-      <TouchableOpacity style={[styles.soundSetting, {backgroundColor: theme}]} onPress={() => navigation.navigate('SoundSettings')}>
-        <Text style={[styles.text, {color: colorText}]}>Sound Settings</Text>
-      </TouchableOpacity>
+      <SettingButton
+        title="Sound Settings"
+        onPress={() => navigation.navigate('SoundSettings')}
+        theme={theme}
+        colorText={colorText}
+        top={157}
+      />
 
-      <TouchableOpacity style={[styles.settingScreen, {backgroundColor: theme}]} onPress={() => navigation.navigate('ScreenSettings')}>
-        <Text style={[styles.text, {color: colorText}]}>Screen Settings</Text>
-      </TouchableOpacity>
+      <SettingButton
+        title="Screen Settings"
+        onPress={() => navigation.navigate('ScreenSettings')}
+        theme={theme}
+        colorText={colorText}
+        top={226}
+      />
 
-      <TouchableOpacity style={[styles.supportScreen, {backgroundColor: theme}]} onPress={() => navigation.navigate('Support')}>
-        <Text style={[styles.text, {color: colorText}]}>Support</Text>
-      </TouchableOpacity>
-
+      <SettingButton
+        title="Support"
+        onPress={() => navigation.navigate('Support')}
+        theme={theme}
+        colorText={colorText}
+        top={295}
+      />
     </BackgroundWrapper>
   );
 }
@@ -34,45 +63,20 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
-
-
-  soundSetting: {
+  button: {
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    top: scaleHeight(157),
     left: scale(69),
     width: scale(292),
     height: isIPhoneSE ? scaleHeight(60) : scaleHeight(48),
     borderRadius: scale(13),
   },
-  settingScreen: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: scaleHeight(226),
-    left: scale(69),
-    width: scale(292),
-    height: isIPhoneSE ? scaleHeight(60) : scaleHeight(48),
-    borderRadius: scale(13),
-  },
-  supportScreen: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: scaleHeight(295),
-    left: scale(69),
-    width: scale(292),
-    height: isIPhoneSE ? scaleHeight(60) : scaleHeight(48),
-    borderRadius: scale(13),
-  },
-
   text: {
     fontSize: scale(16),
-    fontFamily: 'KulimPark-Regular',
+    fontFamily: GlobalStyles.text.fontFamily,
   },
-
 });

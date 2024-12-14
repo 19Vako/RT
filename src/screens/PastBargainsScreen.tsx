@@ -4,7 +4,8 @@ import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight } from '../config/responsive';
 import { useStore } from '../context/Context';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
-
+import GlobalStyles from '../constants/GlobalStyles';
+import { imgs } from '../constants/Images';
 export default function PastBargainsScreen() {
   const { theme, colorText } = useStore();
 
@@ -13,7 +14,7 @@ export default function PastBargainsScreen() {
       <Text style={styles.description}>Past Bargains</Text>
       <Text style={styles.date}>05.01.2023</Text>
 
-      <Image style={styles.image} source={require('../images/pastTolerantion.png')} />
+      <Image style={styles.image} source={imgs.pastTolerantion} />
 
       <Text style={styles.incomeText}>Income</Text>
       <View style={[styles.incomeContainer, { backgroundColor: theme }]}>
@@ -40,14 +41,14 @@ const styles = StyleSheet.create({
     top: scaleHeight(98),
     left: scale(46),
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     color: '#FFFFFF',
   },
   date: {
     position: 'absolute',
     top: scaleHeight(98),
     left: scale(314),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
     fontSize: scale(16),
     color: '#FFFFFF',
   },
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     left: scale(48),
     color: '#FFFFFF',
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   incomeContainer: {
     position: 'absolute',
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   },
   incomeSum: {
     fontSize: scale(50),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   lossesText: {
     position: 'absolute',
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     left: scale(46),
     color: '#FFFFFF',
     fontSize: scale(16),
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   lossesContainer: {
     position: 'absolute',
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   lossesSum: {
     fontSize: scale(50),
     color: '#FFFFFF',
-    fontFamily: 'KulimPark-SemiBold',
+    fontFamily: GlobalStyles.boldText.fontFamily,
   },
   onMenu: {
     position: 'absolute',

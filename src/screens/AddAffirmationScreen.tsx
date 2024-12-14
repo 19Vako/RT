@@ -5,6 +5,7 @@ import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import OnMenuButton from '../elements/buttons/OnMenuButton';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
+import { icons } from '../constants/Images';
 
 export default function AddAffirmationScreen() {
   const { colorText, theme, setInputText, inputText, addBlock } = useStore();
@@ -19,23 +20,21 @@ export default function AddAffirmationScreen() {
 
   return (
     <BackgroundWrapper>
-      {/* Кнопка закрытия */}
       <TouchableOpacity
         style={styles.closeContainer}
         onPress={() => navigation.navigate('Affirmations')}
       >
         <ImageBackground
-          source={require('../images/icons/closeIcon.png')}
+          source={icons.closelcon}
           resizeMode="cover"
           style={styles.closeIcon}
         />
       </TouchableOpacity>
 
-      {/* Поле ввода */}
       <View style={[styles.inputContainer, { backgroundColor: theme }]}>
         <TextInput
           style={styles.input}
-          placeholder="Enter affirmation text" // Переведенный текст
+          placeholder="Enter affirmation text"
           placeholderTextColor={colorText}
           multiline={true}
           textAlignVertical="top"
@@ -43,7 +42,7 @@ export default function AddAffirmationScreen() {
         />
       </View>
 
-      {/* Кнопка добавления */}
+
       <TouchableOpacity
         style={[styles.addButton, { backgroundColor: theme }]}
         onPress={handle}
@@ -51,7 +50,7 @@ export default function AddAffirmationScreen() {
         <Text style={[styles.addButtonText, { color: colorText }]}>+</Text>
       </TouchableOpacity>
 
-      {/* Кнопка перехода в меню */}
+
       <View style={styles.onMenu}>
         <OnMenuButton />
       </View>
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     left: scale(24),
     color: '#000000',
     fontSize: scale(13),
-    paddingVertical: 10, // Внутренний отступ
+    paddingVertical: 10,
   },
   addButton: {
     position: 'absolute',
