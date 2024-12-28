@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,13 +7,15 @@ import {
   View,
   TextInput,
   FlatList,
-  TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { icons } from '../constants/Images';
+import EmojiSelector from 'react-native-emoji-selector';
+import SelectPhotoButton from '../elements/buttons/SelectPhotoButton';
 
 export default function SupportScreen() {
   const [messages, setMessages] = useState([
@@ -26,30 +29,16 @@ export default function SupportScreen() {
   const [input, setInput] = useState('');
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const flatListRef = useRef<FlatList>(null);
-
-  const sendMessage = () => {
-    if (input.trim()) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          text: input,
-          isUser: true,
-          time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
-        },
-      ]);
-      setInput('');
-    }
-  };
+  const [showEmojiKeyboard, setShowEmojiKeyboard] = useState(false);
+  const inputRef = useRef<TextInput>(null);
+  const [photoUri, setPhotoUri] = useState<string | null>(null);
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => setKeyboardVisible(true)
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () =>
+      setKeyboardVisible(true)
     );
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => setKeyboardVisible(false)
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () =>
+      setKeyboardVisible(false)
     );
 
     return () => {
@@ -58,14 +47,33 @@ export default function SupportScreen() {
     };
   }, []);
 
-  const renderMessage = ({ item }: { item: { id: any; text: string; isUser: boolean; time: string } }) => (
+  const handlePhotoSelected = (uri: string) => {
+    setPhotoUri(uri);
+    setKeyboardVisible(false);
+  };
+
+  const sendMessage = () => {
+    if (input.trim() || photoUri) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now(),
+          text: input.trim() || '',
+          isUser: true,
+          time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
+          imageUri: photoUri,
+        },
+      ]);
+      setInput('');
+      setPhotoUri(null);
+    }
+  };
+
+  const renderMessage = ({ item }: { item: { id: number; text: string; isUser: boolean; time: string, imageUri?: string } }) => (
     <View style={styles.messageWrapper}>
       {!item.isUser && (
         <View style={styles.supportHeader}>
-          <Image
-            source={icons.support}
-            style={styles.headerIcon}
-          />
+          <Image source={icons.support} style={styles.headerIcon} />
           <Text style={styles.supportLabel}>Support 24/7</Text>
         </View>
       )}
@@ -75,57 +83,117 @@ export default function SupportScreen() {
           item.isUser ? styles.userMessage : styles.supportMessage,
         ]}
       >
-        <View style={styles.messageContent}>
-          <Text style={styles.messageText}>{item.text}</Text>
+
+          {item.imageUri ? (
+            <View style={styles.messageContent}>
+            <Image source={{ uri: item.imageUri }} style={styles.imageMessage} />
+            <Text style={styles.messageText}>{item.text}</Text>
+            </View>
+          ) : (
+            <View style={styles.messageContent}>
+            <Text style={styles.messageText}>{item.text}</Text>
+            </View>
+          )}
           <Text style={styles.messageTime}>{item.time}</Text>
         </View>
       </View>
-    </View>
   );
 
-  return (
-    <BackgroundWrapper>
-      <View style={styles.iconContainer}>
-        <Image source={icons.support} style={styles.icon} />
-      </View>
-      <Text style={styles.description}>Support Chat</Text>
-      <Text style={styles.title}>
-        Chat support is a program designed for real-time communication with users through text messages.
-      </Text>
-      <FlatList
-        data={messages}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderMessage}
-        ref={flatListRef}
-        onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
-        style={[styles.chatContainer, keyboardVisible ? { height:  scaleHeight(222)} : { height:  scaleHeight(799)}]}
-      />
+  const handleEmojiToggle = () => {
+    setShowEmojiKeyboard((prev) => !prev);
+    if (showEmojiKeyboard) {
+      inputRef.current?.focus();
+    } else {
+      inputRef.current?.blur();}
+  };
 
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View
-          style={[
-            styles.inputContainer,
-            { top: keyboardVisible ? scaleHeight(490) : isIPhoneSE ? scaleHeight(850) : scaleHeight(799) },
-          ]}
-        >
-          <TouchableOpacity>
-            <Image style={styles.emojiIcon} source={icons.emoji} />
-          </TouchableOpacity>
-          <TextInput
-            value={input}
-            onChangeText={setInput}
-            placeholder="Reply..."
-            style={styles.input}
+
+
+  return (
+    // eslint-disable-next-line react-native/no-inline-styles
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <BackgroundWrapper>
+          <View style={styles.iconContainer}>
+              <Image source={icons.support} style={styles.icon} />
+          </View>
+
+          <Text style={styles.description}>Support Chat</Text>
+          <Text style={styles.title}>
+            Chat support is a program designed for real-time communication with users through text messages.
+          </Text>
+
+
+          <FlatList
+              data={messages}
+              onTouchStart={() => setShowEmojiKeyboard(false)}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={renderMessage}
+              ref={flatListRef}
+              onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+              style={[styles.chatContainer,
+                keyboardVisible ? { height: scaleHeight(222) } : { height: scaleHeight(500) },
+            ]}
           />
-          <TouchableOpacity>
-            <Image style={styles.emojiIcon} source={icons.photolcon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.send} onPress={sendMessage}>
-            <Image style={styles.emojiIcon} source={icons.sendicon} />
-          </TouchableOpacity>
-        </View>
-      </TouchableWithoutFeedback>
-    </BackgroundWrapper>
+
+
+
+
+
+          <View
+              style={[
+                styles.inputContainer,
+                { top: keyboardVisible ? scaleHeight(490) : isIPhoneSE ? scaleHeight(850) : scaleHeight(799) },
+              ]}
+            >
+              <TouchableOpacity onPress={handleEmojiToggle}>
+                <Image style={styles.emojiIcon} source={icons.emoji} />
+              </TouchableOpacity>
+
+              <TextInput
+                ref={inputRef}
+                value={input}
+                onChangeText={setInput}
+                placeholder="Reply..."
+                style={styles.input}
+                onFocus={() => {setShowEmojiKeyboard(false);}}
+              />
+
+              <SelectPhotoButton onPhotoSelected={handlePhotoSelected} />
+
+              <TouchableOpacity style={styles.send} onPress={sendMessage}>
+                <Image style={styles.emojiIcon} source={icons.sendicon} />
+              </TouchableOpacity>
+          </View>
+
+
+
+
+
+            {showEmojiKeyboard && (
+              <View style={styles.emojiContainer}>
+                <EmojiSelector
+                  showSearchBar={false}
+                  showHistory={true}
+                  columns={8}
+                  onEmojiSelected={(emoji) => {
+                    setInput((prev) => {
+                      if ((prev + emoji).length <= 200) {
+                        return prev + emoji;
+                      } else {
+                        return prev;
+                      }
+                    });
+                    setShowEmojiKeyboard(false);
+                    inputRef.current?.focus();
+                  }}
+                />
+
+              </View>
+            )}
+
+
+      </BackgroundWrapper>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -135,7 +203,7 @@ const styles = StyleSheet.create({
     top: scaleHeight(80),
     left: scale(71),
     width: scale(57.07),
-    height: isIPhoneSE ? scaleHeight(65) : scaleHeight(57.07),
+    height: scaleHeight(57.07),
     backgroundColor: '#FFFFFF',
     borderRadius: scale(95.11),
     alignItems: 'center',
@@ -194,6 +262,13 @@ const styles = StyleSheet.create({
     width: scale(22.83),
     height: scaleHeight(22.83),
   },
+  emojiContainer: {
+    top: scaleHeight(566),
+    bottom: 0,
+    width: '100%',
+    height: scaleHeight(380),
+    backgroundColor: '#FFFFFF',
+  },
   send: {
     width: scale(38),
     height: scaleHeight(38),
@@ -214,7 +289,7 @@ const styles = StyleSheet.create({
   },
   headerIcon: {
     width: scale(43),
-    height: isIPhoneSE ? scaleHeight(40) : scaleHeight(34),
+    height: scaleHeight(34),
     marginRight: scale(5),
   },
   supportLabel: {
@@ -235,7 +310,6 @@ const styles = StyleSheet.create({
   userMessage: {
     alignSelf: 'flex-end',
     backgroundColor: '#D1FAD7',
-    width: 'auto',
   },
   supportMessage: {
     alignSelf: 'flex-start',
@@ -243,6 +317,7 @@ const styles = StyleSheet.create({
   },
   messageContent: {
     flex: 1,
+    flexDirection: 'column',
   },
   messageText: {
     fontSize: scale(16),
@@ -255,5 +330,12 @@ const styles = StyleSheet.create({
     right: scale(5),
     fontSize: scale(12),
     color: '#888',
+  },
+  imageMessage: {
+    width: scale(170),
+    height: scaleHeight(150),
+    borderRadius: scale(10),
+    marginBottom: scale(10),
+    alignSelf: 'flex-start',
   },
 });

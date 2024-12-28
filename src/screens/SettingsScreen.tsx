@@ -1,10 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { useStore } from '../context/Context';
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from '../constants/GlobalStyles';
+import OnMenuButton from '../elements/buttons/OnMenuButton';
 
 interface SettingButtonProps {
   title: string;
@@ -54,6 +55,10 @@ export default function SettingsScreen() {
         colorText={colorText}
         top={295}
       />
+
+      <View style={styles.onMenu}>
+        <OnMenuButton />
+      </View>
     </BackgroundWrapper>
   );
 }
@@ -78,5 +83,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: scale(16),
     fontFamily: GlobalStyles.text.fontFamily,
+  },
+  onMenu: {
+    position: 'absolute',
+    top: scaleHeight(815),
   },
 });
