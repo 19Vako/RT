@@ -10,11 +10,19 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+
 } from 'react-native';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { icons } from '../constants/Images';
+import { memo } from 'react';
+
 import EmojiSelector from 'react-native-emoji-selector';
+const EmojiSelectorMemo = memo(EmojiSelector);
+
+
+
+
 import SelectPhotoButton from '../elements/buttons/SelectPhotoButton';
 
 export default function SupportScreen() {
@@ -30,7 +38,7 @@ export default function SupportScreen() {
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const flatListRef = useRef<FlatList>(null);
   const [showEmojiKeyboard, setShowEmojiKeyboard] = useState(false);
-  const inputRef = useRef<TextInput>(null);
+  const inputRef = useRef<TextInput | null>(null);
   const [photoUri, setPhotoUri] = useState<string | null>(null);
 
   useEffect(() => {
@@ -51,6 +59,8 @@ export default function SupportScreen() {
     setPhotoUri(uri);
     setKeyboardVisible(false);
   };
+
+
 
   const sendMessage = () => {
     if (input.trim() || photoUri) {
@@ -171,11 +181,11 @@ export default function SupportScreen() {
 
             {showEmojiKeyboard && (
               <View style={styles.emojiContainer}>
-                <EmojiSelector
+                 <EmojiSelectorMemo
+                  showTabs={false}
                   showSearchBar={false}
-                  showHistory={true}
                   columns={8}
-                  onEmojiSelected={(emoji) => {
+                  onEmojiSelected={(emoji: any) => {
                     setInput((prev) => {
                       if ((prev + emoji).length <= 200) {
                         return prev + emoji;
@@ -184,10 +194,11 @@ export default function SupportScreen() {
                       }
                     });
                     setShowEmojiKeyboard(false);
-                    inputRef.current?.focus();
+                    if (inputRef.current) {
+                      inputRef.current.focus();
+                    }
                   }}
                 />
-
               </View>
             )}
 
@@ -197,13 +208,16 @@ export default function SupportScreen() {
   );
 }
 
+
+
+
 const styles = StyleSheet.create({
   iconContainer: {
     position: 'absolute',
     top: scaleHeight(80),
     left: scale(71),
     width: scale(57.07),
-    height: scaleHeight(57.07),
+    height: isIPhoneSE ? scaleHeight(66.07) : scaleHeight(57.07),
     backgroundColor: '#FFFFFF',
     borderRadius: scale(95.11),
     alignItems: 'center',
@@ -263,15 +277,15 @@ const styles = StyleSheet.create({
     height: scaleHeight(22.83),
   },
   emojiContainer: {
+    backgroundColor: 'white',
     top: scaleHeight(566),
     bottom: 0,
     width: '100%',
-    height: scaleHeight(380),
-    backgroundColor: '#FFFFFF',
+    height: 380,
   },
   send: {
     width: scale(38),
-    height: scaleHeight(38),
+    height: isIPhoneSE ? scaleHeight(45) : scaleHeight(38),
     borderRadius: scale(50),
     alignItems: 'center',
     justifyContent: 'center',
@@ -289,7 +303,7 @@ const styles = StyleSheet.create({
   },
   headerIcon: {
     width: scale(43),
-    height: scaleHeight(34),
+    height: isIPhoneSE ? scaleHeight(40) : scaleHeight(34),
     marginRight: scale(5),
   },
   supportLabel: {
