@@ -10,20 +10,15 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-
 } from 'react-native';
 import BackgroundWrapper from '../elements/wrappers/BackgroundWrapper';
 import { scale, scaleHeight, isIPhoneSE } from '../config/responsive';
 import { icons } from '../constants/Images';
 import { memo } from 'react';
-
 import EmojiSelector from 'react-native-emoji-selector';
-const EmojiSelectorMemo = memo(EmojiSelector);
-
-
-
-
 import SelectPhotoButton from '../elements/buttons/SelectPhotoButton';
+
+const EmojiSelectorMemo = memo(EmojiSelector);
 
 export default function SupportScreen() {
   const [messages, setMessages] = useState([
@@ -60,26 +55,38 @@ export default function SupportScreen() {
     setKeyboardVisible(false);
   };
 
-
-
   const sendMessage = () => {
     if (input.trim() || photoUri) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          text: input.trim() || '',
-          isUser: true,
-          time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
-          imageUri: photoUri,
-        },
-      ]);
+      const userMessage = {
+        id: Date.now(),
+        text: input.trim() || '',
+        isUser: true,
+        time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
+        imageUri: photoUri,
+      };
+
+      setMessages((prev) => [...prev, userMessage]);
       setInput('');
       setPhotoUri(null);
+
+      generateSupportResponse();
     }
   };
 
-  const renderMessage = ({ item }: { item: { id: number; text: string; isUser: boolean; time: string, imageUri?: string } }) => (
+  const generateSupportResponse = () => {
+    setTimeout(() => {
+      const supportMessage = {
+        id: Date.now(),
+        text: 'Thank you for your message, we are working on your problem.',
+        isUser: false,
+        time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
+      };
+
+      setMessages((prev) => [...prev, supportMessage]);
+    }, 2000);
+  };
+
+  const renderMessage = ({ item }: { item: { id: number; text: string; isUser: boolean; time: string; imageUri?: string } }) => (
     <View style={styles.messageWrapper}>
       {!item.isUser && (
         <View style={styles.supportHeader}>
@@ -93,20 +100,19 @@ export default function SupportScreen() {
           item.isUser ? styles.userMessage : styles.supportMessage,
         ]}
       >
-
-          {item.imageUri ? (
-            <View style={styles.messageContent}>
+        {item.imageUri ? (
+          <View style={styles.messageContent}>
             <Image source={{ uri: item.imageUri }} style={styles.imageMessage} />
             <Text style={styles.messageText}>{item.text}</Text>
-            </View>
-          ) : (
-            <View style={styles.messageContent}>
+          </View>
+        ) : (
+          <View style={styles.messageContent}>
             <Text style={styles.messageText}>{item.text}</Text>
-            </View>
-          )}
-          <Text style={styles.messageTime}>{item.time}</Text>
-        </View>
+          </View>
+        )}
+        <Text style={styles.messageTime}>{item.time}</Text>
       </View>
+    </View>
   );
 
   const handleEmojiToggle = () => {
@@ -114,95 +120,88 @@ export default function SupportScreen() {
     if (showEmojiKeyboard) {
       inputRef.current?.focus();
     } else {
-      inputRef.current?.blur();}
+      inputRef.current?.blur();
+    }
   };
 
-
-
   return (
-    // eslint-disable-next-line react-native/no-inline-styles
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <BackgroundWrapper>
-          <View style={styles.iconContainer}>
-              <Image source={icons.support} style={styles.icon} />
-          </View>
+        <View style={styles.iconContainer}>
+          <Image source={icons.support} style={styles.icon} />
+        </View>
 
-          <Text style={styles.description}>Support Chat</Text>
-          <Text style={styles.title}>
-            Chat support is a program designed for real-time communication with users through text messages.
-          </Text>
+        <Text style={styles.description}>Support Chat</Text>
+        <Text style={styles.title}>
+          Chat support is a program designed for real-time communication with users through text messages.
+        </Text>
 
+        <FlatList
+          data={messages}
+          onTouchStart={() => setShowEmojiKeyboard(false)}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderMessage}
+          ref={flatListRef}
+          onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+          style={[
+            styles.chatContainer,
+            keyboardVisible ? { height: scaleHeight(222) } : { height: scaleHeight(500) },
+          ]}
+        />
 
-          <FlatList
-              data={messages}
-              onTouchStart={() => setShowEmojiKeyboard(false)}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={renderMessage}
-              ref={flatListRef}
-              onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
-              style={[styles.chatContainer,
-                keyboardVisible ? { height: scaleHeight(222) } : { height: scaleHeight(500) },
-            ]}
+        <View
+          style={[
+            styles.inputContainer,
+            { top: keyboardVisible ? scaleHeight(490) : isIPhoneSE ? scaleHeight(850) : scaleHeight(799) },
+          ]}
+        >
+          <TouchableOpacity onPress={handleEmojiToggle}>
+            <Image style={styles.emojiIcon} source={icons.emoji} />
+          </TouchableOpacity>
+
+          <TextInput
+            ref={inputRef}
+            value={input}
+            onChangeText={setInput}
+            placeholder="Reply..."
+            style={styles.input}
+            onFocus={() => {
+              setShowEmojiKeyboard(false);
+              setKeyboardVisible(true);
+            }}
           />
 
+          <TouchableOpacity onPress={() => setKeyboardVisible(true)}>
+            <SelectPhotoButton onPhotoSelected={handlePhotoSelected} />
+          </TouchableOpacity>
 
+          <TouchableOpacity style={styles.send} onPress={sendMessage}>
+            <Image style={styles.emojiIcon} source={icons.sendicon} />
+          </TouchableOpacity>
+        </View>
 
-
-
-          <View
-              style={[
-                styles.inputContainer,
-                { top: keyboardVisible ? scaleHeight(490) : isIPhoneSE ? scaleHeight(850) : scaleHeight(799) },
-              ]}
-            >
-              <TouchableOpacity onPress={handleEmojiToggle}>
-                <Image style={styles.emojiIcon} source={icons.emoji} />
-              </TouchableOpacity>
-
-              <TextInput
-                ref={inputRef}
-                value={input}
-                onChangeText={setInput}
-                placeholder="Reply..."
-                style={styles.input}
-                onFocus={() => {setShowEmojiKeyboard(false);}}
-              />
-
-              <SelectPhotoButton onPhotoSelected={handlePhotoSelected} />
-
-              <TouchableOpacity style={styles.send} onPress={sendMessage}>
-                <Image style={styles.emojiIcon} source={icons.sendicon} />
-              </TouchableOpacity>
+        {showEmojiKeyboard && (
+          <View style={styles.emojiContainer}>
+            <EmojiSelectorMemo
+              showTabs={false}
+              showSearchBar={false}
+              columns={8}
+              onEmojiSelected={(emoji: string) => {
+                setInput((prev) => {
+                  if ((prev + emoji).length <= 200) {
+                    return prev + emoji;
+                  } else {
+                    return prev;
+                  }
+                });
+                setShowEmojiKeyboard(false);
+                if (inputRef.current) {
+                  inputRef.current.focus();
+                }
+              }}
+            />
           </View>
-
-
-
-
-
-            {showEmojiKeyboard && (
-              <View style={styles.emojiContainer}>
-                 <EmojiSelectorMemo
-                  showTabs={false}
-                  showSearchBar={false}
-                  columns={8}
-                  onEmojiSelected={(emoji: any) => {
-                    setInput((prev) => {
-                      if ((prev + emoji).length <= 200) {
-                        return prev + emoji;
-                      } else {
-                        return prev;
-                      }
-                    });
-                    setShowEmojiKeyboard(false);
-                    if (inputRef.current) {
-                      inputRef.current.focus();
-                    }
-                  }}
-                />
-              </View>
-            )}
-
-
+        )}
       </BackgroundWrapper>
     </KeyboardAvoidingView>
   );
